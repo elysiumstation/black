@@ -3,10 +3,10 @@ package app
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/planq-network/planq/app/keepers"
-	"github.com/planq-network/planq/app/upgrades"
-	v1_0_1 "github.com/planq-network/planq/app/upgrades/v1_0_1"
-	"github.com/planq-network/planq/app/upgrades/v1_0_5"
+	"github.com/xblackfury/black/app/keepers"
+	"github.com/xblackfury/black/app/upgrades"
+	v1_0_1 "github.com/xblackfury/black/app/upgrades/v1_0_1"
+	"github.com/xblackfury/black/app/upgrades/v1_0_5"
 	"io"
 	"net/http"
 	"os"
@@ -105,9 +105,9 @@ import (
 	ibctesting "github.com/cosmos/ibc-go/v5/testing"
 
 	// unnamed import of statik for swagger UI support
-	_ "github.com/planq-network/planq/client/docs/statik"
+	_ "github.com/xblackfury/black/client/docs/statik"
 
-	"github.com/planq-network/planq/app/ante"
+	"github.com/xblackfury/black/app/ante"
 
 	ethermintapp "github.com/evmos/ethermint/app"
 	"github.com/evmos/ethermint/encoding"
@@ -134,10 +134,10 @@ func init() {
 	}
 
 	sdk.DefaultPowerReduction = ethermint.PowerReduction
-	DefaultNodeHome = filepath.Join(userHomeDir, ".planqd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".blackd")
 }
 
-const Name = "planqd"
+const Name = "blackd"
 
 var (
 	// DefaultNodeHome default home directories for the application daemon
@@ -193,20 +193,20 @@ var (
 		distrtypes.ModuleName: true,
 	}
 
-	_ servertypes.Application = (*PlanqApp)(nil)
-	_ simapp.App              = (*PlanqApp)(nil)
-	_ ibctesting.TestingApp   = (*PlanqApp)(nil)
+	_ servertypes.Application = (*BlackApp)(nil)
+	_ simapp.App              = (*BlackApp)(nil)
+	_ ibctesting.TestingApp   = (*BlackApp)(nil)
 
 	Upgrades = []upgrades.Upgrade{}
 	Forks    = []upgrades.Fork{v1_0_1.Fork, v1_0_5.Fork}
 )
 
-// var _ server.Application (*PlanqApp)(nil)
+// var _ server.Application (*BlackApp)(nil)
 
-// PlanqApp implements an extended ABCI application. It is an application
+// BlackApp implements an extended ABCI application. It is an application
 // that may process transactions through Ethereum's EVM running atop of
 // Tendermint consensus.
-type PlanqApp struct {
+type BlackApp struct {
 	*baseapp.BaseApp
 
 	// encoding
@@ -233,8 +233,8 @@ type PlanqApp struct {
 	configurator module.Configurator
 }
 
-// NewPlanqApp returns a reference to a new initialized Ethermint application.
-func NewPlanqApp(
+// NewBlackApp returns a reference to a new initialized Ethermint application.
+func NewBlackApp(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -245,7 +245,7 @@ func NewPlanqApp(
 	encodingConfig simappparams.EncodingConfig,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) *PlanqApp {
+) *BlackApp {
 	appCodec := encodingConfig.Codec
 	cdc := encodingConfig.Amino
 	interfaceRegistry := encodingConfig.InterfaceRegistry
@@ -280,7 +280,7 @@ func NewPlanqApp(
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey, evmtypes.TransientKey, feemarkettypes.TransientKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
 
-	app := &PlanqApp{
+	app := &BlackApp{
 		BaseApp:           bApp,
 		cdc:               cdc,
 		appCodec:          appCodec,
@@ -628,7 +628,7 @@ func NewPlanqApp(
 	return app
 }
 
-func (app *PlanqApp) setPostHandler() {
+func (app *BlackApp) setPostHandler() {
 	postHandler, err := posthandler.NewPostHandler(
 		posthandler.HandlerOptions{},
 	)
@@ -639,43 +639,43 @@ func (app *PlanqApp) setPostHandler() {
 	app.SetPostHandler(postHandler)
 }
 
-func (app *PlanqApp) GetBaseApp() *baseapp.BaseApp {
+func (app *BlackApp) GetBaseApp() *baseapp.BaseApp {
 	return app.BaseApp
 }
 
-func (app *PlanqApp) GetStakingKeeper() ibctestingtypes.StakingKeeper {
+func (app *BlackApp) GetStakingKeeper() ibctestingtypes.StakingKeeper {
 	return app.StakingKeeper
 }
 
-func (app *PlanqApp) GetIBCKeeper() *ibckeeper.Keeper {
+func (app *BlackApp) GetIBCKeeper() *ibckeeper.Keeper {
 	return app.IBCKeeper
 }
 
-func (app *PlanqApp) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
+func (app *BlackApp) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
 	return app.ScopedIBCKeeper
 }
 
-func (app *PlanqApp) GetTxConfig() client.TxConfig {
+func (app *BlackApp) GetTxConfig() client.TxConfig {
 	cfg := encoding.MakeConfig(ModuleBasics)
 	return cfg.TxConfig
 }
 
 // Name returns the name of the App
-func (app *PlanqApp) Name() string { return app.BaseApp.Name() }
+func (app *BlackApp) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker updates every begin block
-func (app *PlanqApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *BlackApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	BeginBlockForks(ctx, app, *app.BaseApp)
 	return app.mm.BeginBlock(ctx, req)
 }
 
 // EndBlocker updates every end block
-func (app *PlanqApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *BlackApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
 
 // InitChainer updates at chain initialization
-func (app *PlanqApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *BlackApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState simapp.GenesisState
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
@@ -685,12 +685,12 @@ func (app *PlanqApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abc
 }
 
 // LoadHeight loads state at a particular height
-func (app *PlanqApp) LoadHeight(height int64) error {
+func (app *BlackApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *PlanqApp) ModuleAccountAddrs() map[string]bool {
+func (app *BlackApp) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = true
@@ -701,7 +701,7 @@ func (app *PlanqApp) ModuleAccountAddrs() map[string]bool {
 
 // BlockedAddrs returns all the app's module account addresses that are not
 // allowed to receive external tokens.
-func (app *PlanqApp) BlockedAddrs() map[string]bool {
+func (app *BlackApp) BlockedAddrs() map[string]bool {
 	blockedAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		blockedAddrs[authtypes.NewModuleAddress(acc).String()] = !allowedReceivingModAcc[acc]
@@ -710,64 +710,64 @@ func (app *PlanqApp) BlockedAddrs() map[string]bool {
 	return blockedAddrs
 }
 
-// LegacyAmino returns PlanqApp's amino codec.
+// LegacyAmino returns BlackApp's amino codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *PlanqApp) LegacyAmino() *codec.LegacyAmino {
+func (app *BlackApp) LegacyAmino() *codec.LegacyAmino {
 	return app.cdc
 }
 
-// AppCodec returns PlanqApp's app codec.
+// AppCodec returns BlackApp's app codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *PlanqApp) AppCodec() codec.Codec {
+func (app *BlackApp) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
-// InterfaceRegistry returns PlanqApp's InterfaceRegistry
-func (app *PlanqApp) InterfaceRegistry() types.InterfaceRegistry {
+// InterfaceRegistry returns BlackApp's InterfaceRegistry
+func (app *BlackApp) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *PlanqApp) GetKey(storeKey string) *storetypes.KVStoreKey {
+func (app *BlackApp) GetKey(storeKey string) *storetypes.KVStoreKey {
 	return app.keys[storeKey]
 }
 
 // GetTKey returns the TransientStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *PlanqApp) GetTKey(storeKey string) *storetypes.TransientStoreKey {
+func (app *BlackApp) GetTKey(storeKey string) *storetypes.TransientStoreKey {
 	return app.tkeys[storeKey]
 }
 
 // GetMemKey returns the MemStoreKey for the provided mem key.
 //
 // NOTE: This is solely used for testing purposes.
-func (app *PlanqApp) GetMemKey(storeKey string) *storetypes.MemoryStoreKey {
+func (app *BlackApp) GetMemKey(storeKey string) *storetypes.MemoryStoreKey {
 	return app.memKeys[storeKey]
 }
 
 // GetSubspace returns a param subspace for a given module name.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *PlanqApp) GetSubspace(moduleName string) paramstypes.Subspace {
+func (app *BlackApp) GetSubspace(moduleName string) paramstypes.Subspace {
 	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
 	return subspace
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *PlanqApp) SimulationManager() *module.SimulationManager {
+func (app *BlackApp) SimulationManager() *module.SimulationManager {
 	return app.sm
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *PlanqApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *BlackApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 	// Register new tx routes from grpc-gateway.
 	authtx.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
@@ -784,12 +784,12 @@ func (app *PlanqApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIC
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.
-func (app *PlanqApp) RegisterTxService(clientCtx client.Context) {
+func (app *BlackApp) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *PlanqApp) RegisterTendermintService(clientCtx client.Context) {
+func (app *BlackApp) RegisterTendermintService(clientCtx client.Context) {
 	tmservice.RegisterTendermintService(
 		clientCtx,
 		app.BaseApp.GRPCQueryRouter(),
@@ -799,7 +799,7 @@ func (app *PlanqApp) RegisterTendermintService(clientCtx client.Context) {
 }
 
 // configure store loader that checks if version == upgradeHeight and applies store upgrades
-func (app *PlanqApp) setupUpgradeStoreLoaders() {
+func (app *BlackApp) setupUpgradeStoreLoaders() {
 	upgradeInfo, err := app.UpgradeKeeper.ReadUpgradeInfoFromDisk()
 	if err != nil {
 		panic(fmt.Sprintf("failed to read upgrade info from disk %s", err))
@@ -816,7 +816,7 @@ func (app *PlanqApp) setupUpgradeStoreLoaders() {
 	}
 }
 
-func (app *PlanqApp) setupUpgradeHandlers() {
+func (app *BlackApp) setupUpgradeHandlers() {
 	for _, upgrade := range Upgrades {
 		app.UpgradeKeeper.SetUpgradeHandler(
 			upgrade.UpgradeName,

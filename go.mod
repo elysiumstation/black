@@ -1,4 +1,4 @@
-module github.com/planq-network/planq
+module github.com/xblackfury/black
 
 go 1.18
 

@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/planq-network/planq/version"
+	"github.com/xblackfury/black/version"
 )
 
 const (

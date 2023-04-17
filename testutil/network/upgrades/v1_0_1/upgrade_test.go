@@ -5,8 +5,8 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
 	erc20types "github.com/evmos/evmos/v9/x/erc20/types"
-	pApp "github.com/planq-network/planq/app"
-	"github.com/planq-network/planq/testutil/network"
+	pApp "github.com/xblackfury/black/app"
+	"github.com/xblackfury/black/testutil/network"
 	"github.com/stretchr/testify/suite"
 	"testing"
 	"time"
@@ -18,7 +18,7 @@ type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *pApp.PlanqApp
+	app         *pApp.BlackApp
 	consAddress sdk.ConsAddress
 	network     *network.Network
 }

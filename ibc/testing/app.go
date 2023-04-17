@@ -2,7 +2,7 @@ package ibctesting
 
 import (
 	"encoding/json"
-	"github.com/planq-network/planq/cmd/config"
+	"github.com/xblackfury/black/cmd/config"
 	"testing"
 	"time"
 
@@ -21,10 +21,10 @@ import (
 	ibcgotesting "github.com/cosmos/ibc-go/v5/testing"
 
 	ethermint "github.com/evmos/ethermint/types"
-	planqApp "github.com/planq-network/planq/app"
+	blackApp "github.com/xblackfury/black/app"
 )
 
-var DefaultTestingAppInit func() (ibcgotesting.TestingApp, map[string]json.RawMessage) = planqApp.SetupTestingApp
+var DefaultTestingAppInit func() (ibcgotesting.TestingApp, map[string]json.RawMessage) = blackApp.SetupTestingApp
 
 // SetupWithGenesisValSet initializes a new SimApp with a validator set and genesis accounts
 // that also act as delegators. For simplicity, each validator is bonded with a delegation
@@ -91,7 +91,7 @@ func SetupWithGenesisValSet(t *testing.T, valSet *tmtypes.ValidatorSet, genAccs 
 		abci.RequestInitChain{
 			ChainId:         chainID,
 			Validators:      []abci.ValidatorUpdate{},
-			ConsensusParams: planqApp.DefaultConsensusParams,
+			ConsensusParams: blackApp.DefaultConsensusParams,
 			AppStateBytes:   stateBytes,
 		},
 	)

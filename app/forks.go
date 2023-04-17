@@ -6,7 +6,7 @@ import (
 )
 
 // BeginBlockForks is intended to be ran in a chain upgrade.
-func BeginBlockForks(ctx sdk.Context, app *PlanqApp, baseApp baseapp.BaseApp) {
+func BeginBlockForks(ctx sdk.Context, app *BlackApp, baseApp baseapp.BaseApp) {
 	for _, fork := range Forks {
 		if ctx.BlockHeight() == fork.UpgradeHeight {
 			fork.BeginForkLogic(ctx, &app.AppKeepers, &baseApp)

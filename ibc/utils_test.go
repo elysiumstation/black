@@ -14,7 +14,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("plq", "plqpub")
+	cfg.SetBech32PrefixForAccount("did:fury:", "did:fury:pub")
 }
 
 func TestGetTransferSenderRecipient(t *testing.T) {
@@ -55,7 +55,7 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "cosmos1",
-						Receiver: "plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+						Receiver: "did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
 						Amount:   "123456",
 					},
 				),
@@ -69,7 +69,7 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-						Receiver: "plq1",
+						Receiver: "did:fury:1",
 						Amount:   "123456",
 					},
 				),
@@ -83,13 +83,13 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-						Receiver: "plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+						Receiver: "did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
 						Amount:   "123456",
 					},
 				),
 			},
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
-			"plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
 			false,
 		},
 		{
@@ -97,14 +97,14 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 			channeltypes.Packet{
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
-						Sender:   "plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+						Sender:   "did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
 						Receiver: "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
 						Amount:   "123456",
 					},
 				),
 			},
-			"plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
 			false,
 		},
 		{
@@ -113,13 +113,13 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "osmo1qql8ag4cluz6r4dz28p3w00dnc9w8ueuhnecd2",
-						Receiver: "plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+						Receiver: "did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
 						Amount:   "123456",
 					},
 				),
 			},
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
-			"plq1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury:1hjz2lf7e7lxgx9rgucrkk57yvnm5ft3m43rchp",
 			false,
 		},
 	}
@@ -163,7 +163,7 @@ func TestGetTransferAmount(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-						Receiver: "plq1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
+						Receiver: "did:fury:1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
 						Amount:   "",
 					},
 				),
@@ -177,7 +177,7 @@ func TestGetTransferAmount(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-						Receiver: "plq1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
+						Receiver: "did:fury:1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
 						Amount:   "test",
 					},
 				),
@@ -191,7 +191,7 @@ func TestGetTransferAmount(t *testing.T) {
 				Data: transfertypes.ModuleCdc.MustMarshalJSON(
 					&transfertypes.FungibleTokenPacketData{
 						Sender:   "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-						Receiver: "plq1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
+						Receiver: "did:fury:1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
 						Amount:   "10000",
 					},
 				),

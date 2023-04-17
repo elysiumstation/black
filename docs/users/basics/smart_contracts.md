@@ -4,7 +4,7 @@ order: 4
 
 # Smart contracts
 
-Learn more about smart contracts and how are they supported on Planq {synopsis}
+Learn more about smart contracts and how are they supported on Black {synopsis}
 
 ::: tip
 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧

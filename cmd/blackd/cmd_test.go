@@ -10,17 +10,17 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 
-	"github.com/planq-network/planq/app"
-	planqd "github.com/planq-network/planq/cmd/planqd"
+	"github.com/xblackfury/black/app"
+	blackd "github.com/xblackfury/black/cmd/blackd"
 )
 
 func TestInitCmd(t *testing.T) {
-	rootCmd, _ := planqd.NewRootCmd()
+	rootCmd, _ := blackd.NewRootCmd()
 	rootCmd.SetArgs([]string{
 		"init",      // Test the init cmd
-		"planqtest", // Moniker
+		"blacktest", // Moniker
 		fmt.Sprintf("--%s=%s", cli.FlagOverwrite, "true"), // Overwrite genesis.json, in case it already exists
-		fmt.Sprintf("--%s=%s", flags.FlagChainID, "planq_7000-1"),
+		fmt.Sprintf("--%s=%s", flags.FlagChainID, "black_4200-1"),
 	})
 
 	err := svrcmd.Execute(rootCmd, "", app.DefaultNodeHome)

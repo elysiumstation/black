@@ -4,7 +4,7 @@ order: 5
 
 # Run an IBC Relayer
 
-Learn how to run an IBC Relayer for Planq. {synopsis}
+Learn how to run an IBC Relayer for Black. {synopsis}
 
 ## Minimum Requirements
 
@@ -16,21 +16,21 @@ If running many nodes on a single VM, [ensure your open files limit is increased
 
 ## Prerequisites
 <!-- textlint-disable -->
-Before beginning, ensure you have an Planq node running in the background of the same machine that you intend to relay on. Follow [this guide](quickstart/run_node.md) to set up an Planq node if you have not already.
+Before beginning, ensure you have an Black node running in the background of the same machine that you intend to relay on. Follow [this guide](quickstart/run_node.md) to set up an Black node if you have not already.
 <!-- textlint-enable -->
 
-In this guide, we will be relaying between [Planq (channel-2) and Cosmos Hub (channel-446)](https://www.mintscan.io/evmos/relayers). When setting up your Planq and Cosmos full nodes, be sure to offset the ports being used in both the `app.toml` and `config.toml` files of the respective chains (this process will be shown below).
+In this guide, we will be relaying between [Black (channel-2) and Cosmos Hub (channel-446)](https://www.mintscan.io/evmos/relayers). When setting up your Black and Cosmos full nodes, be sure to offset the ports being used in both the `app.toml` and `config.toml` files of the respective chains (this process will be shown below).
 
 <!-- textlint-disable -->
-In this example, the default ports for Planq will be used, and the ports of the Cosmos Hub node will be manually changed.
+In this example, the default ports for Black will be used, and the ports of the Cosmos Hub node will be manually changed.
 <!-- textlint-enable -->
 
-## Planq Daemon Settings
+## Black Daemon Settings
 
-First, set `grpc server` on port `9090` in the `app.toml` file from the `$HOME/.planqd/config` directory:
+First, set `grpc server` on port `9090` in the `app.toml` file from the `$HOME/.blackd/config` directory:
 
 ```bash
-vim $HOME/.planqd/config/app.toml
+vim $HOME/.blackd/config/app.toml
 ```
 
 ```bash
@@ -43,10 +43,10 @@ enable = true
 address = "0.0.0.0:9090"
 ```
 
-Then, set the `pprof_laddr` to port `6060`, `rpc laddr` to port `26657`, and `prp laddr` to `26656` in the `config.toml` file from the `$HOME/.planqd/config` directory:
+Then, set the `pprof_laddr` to port `6060`, `rpc laddr` to port `26657`, and `prp laddr` to `26656` in the `config.toml` file from the `$HOME/.blackd/config` directory:
 
 ```bash
-vim $HOME/.planqd/config/config.toml
+vim $HOME/.blackd/config/config.toml
 ```
 
 ```bash
@@ -163,7 +163,7 @@ vim $HOME/.hermes/config/config.toml
 ```
 
 ```bash
-# In this example, we will set channel-446 on the cosmoshub-4 chain settings and channel-2 on the planq_7070-2 chain settings:
+# In this example, we will set channel-446 on the cosmoshub-4 chain settings and channel-2 on the black_42024-2 chain settings:
 [[chains]]
 id = 'cosmoshub-4'
 rpc_addr = 'http://127.0.0.1:26757'
@@ -173,11 +173,11 @@ websocket_addr = 'ws://127.0.0.1:26757/websocket'
 [chains.packet_filter]
 policy = 'allow'
 list = [
-   ['transfer', 'channel-446'], # planq_7070-2
+   ['transfer', 'channel-446'], # black_42024-2
 ]
 
 [[chains]]
-id = 'planq_7070-2'
+id = 'black_42024-2'
 rpc_addr = 'http://127.0.0.1:26657'
 grpc_addr = 'http://127.0.0.1:9090'
 websocket_addr = 'ws://127.0.0.1:26657/websocket'
@@ -196,10 +196,10 @@ The best practice is to use the same mnemonic over all networks. Do not use your
 
 ```bash
 hermes keys restore cosmoshub-4 -m "24-word mnemonic seed"
-hermes keys restore planq_7070-2 -m "24-word mnemonic seed"
+hermes keys restore black_42024-2 -m "24-word mnemonic seed"
 ```
 
-Ensure this wallet has funds in both PLANQ and ATOM in order to pay the fees required to relay.
+Ensure this wallet has funds in both BLACK and ATOM in order to pay the fees required to relay.
 
 ## Final Checks
 
@@ -219,7 +219,7 @@ INFO ThreadId(01) using default configuration from '/home/relay/.hermes/config.t
 INFO ThreadId(01) telemetry service running, exposing metrics at http://0.0.0.0:3001/metrics
 INFO ThreadId(01) starting REST API server listening at http://127.0.0.1:3000
 INFO ThreadId(01) [cosmoshub-4] chain is healthy
-INFO ThreadId(01) [planq_7070-2] chain is healthy
+INFO ThreadId(01) [black_42024-2] chain is healthy
 ```
 
 When your nodes are fully synced, you can start the hermes daemon:
@@ -240,29 +240,29 @@ hermes query packet unreceived-acks cosmoshub-4 transfer channel-446
 ```
 
 ```bash
-hermes query packet unreceived-packets planq_7070-2 transfer channel-2
-hermes query packet unreceived-acks planq_7070-2 transfer channel-2
+hermes query packet unreceived-packets black_42024-2 transfer channel-2
+hermes query packet unreceived-acks black_42024-2 transfer channel-2
 ```
 
 Query hermes for packet commitments with the following:
 
 ```bash
 hermes query packet commitments cosmoshub-4 transfer channel-446
-hermes query packet commitments planq_7070-2 transfer channel-2
+hermes query packet commitments black_42024-2 transfer channel-2
 ```
 
 Clear the channel (only works on hermes `v0.12.0` and higher) with the following:
 
 ```bash
 hermes clear packets cosmoshub-4 transfer channel-446
-hermes clear packets planq_7070-2 transfer channel-2
+hermes clear packets black_42024-2 transfer channel-2
 ```
 
 Clear unrecieved packets manually (experimental, will need to stop hermes daemon to prevent confusion with account sequences) with the following:
 
 ```bash
-hermes tx raw packet-recv planq_7070-2 cosmoshub-4 transfer channel-446
-hermes tx raw packet-ack planq_7070-2 cosmoshub-4 transfer channel-446
-hermes tx raw packet-recv cosmoshub-4 planq_7070-2 transfer channel-2
-hermes tx raw packet-ack cosmoshub-4 planq_7070-2 transfer channel-2
+hermes tx raw packet-recv black_42024-2 cosmoshub-4 transfer channel-446
+hermes tx raw packet-ack black_42024-2 cosmoshub-4 transfer channel-446
+hermes tx raw packet-recv cosmoshub-4 black_42024-2 transfer channel-2
+hermes tx raw packet-ack cosmoshub-4 black_42024-2 transfer channel-2
 ```

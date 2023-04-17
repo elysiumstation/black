@@ -32,7 +32,7 @@ import (
 	"github.com/evmos/ethermint/encoding"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
-	"github.com/planq-network/planq/app"
+	"github.com/xblackfury/black/app"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
@@ -49,7 +49,7 @@ type AnteTestSuite struct {
 	suite.Suite
 
 	ctx   sdk.Context
-	app   *app.PlanqApp
+	app   *app.BlackApp
 	denom string
 }
 
@@ -71,10 +71,10 @@ func (suite *AnteTestSuite) SetupTest(isCheckTx bool) {
 	consAddress := sdk.ConsAddress(privCons.PubKey().Address())
 
 	suite.app = app.Setup(isCheckTx, feemarkettypes.DefaultGenesisState())
-	suite.denom = "aplanq"
+	suite.denom = "ablack"
 	suite.ctx = suite.app.BaseApp.NewContext(isCheckTx, tmproto.Header{
 		Height:          1,
-		ChainID:         "planq_7001-1",
+		ChainID:         "black_4200-1",
 		Time:            time.Now().UTC(),
 		ProposerAddress: consAddress.Bytes(),
 
@@ -272,7 +272,7 @@ func createTx(priv *ethsecp256k1.PrivKey, msgs ...sdk.Msg) (sdk.Tx, error) {
 	}
 
 	signerData := authsigning.SignerData{
-		ChainID:       "planq_7001-1",
+		ChainID:       "black_4200-1",
 		AccountNumber: 0,
 		Sequence:      0,
 	}
@@ -313,7 +313,7 @@ func createEIP712CosmosTx(
 	gas := uint64(200000)
 
 	fee := legacytx.NewStdFee(gas, amount)
-	data := legacytx.StdSignBytes("planq_7001-1", 0, 0, 0, fee, msgs, "", nil)
+	data := legacytx.StdSignBytes("black_4200-1", 0, 0, 0, fee, msgs, "", nil)
 	typedData, err := eip712.WrapTxToTypedData(ethermintCodec, 9000, msgs[0], data, &eip712.FeeDelegationOptions{
 		FeePayer: from,
 	})

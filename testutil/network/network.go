@@ -57,7 +57,7 @@ import (
 	ethermint "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/planq-network/planq/app"
+	"github.com/xblackfury/black/app"
 )
 
 // package-wide network lock to only allow one test network at a time
@@ -70,7 +70,7 @@ type AppConstructor = func(val Validator) servertypes.Application
 // NewAppConstructor returns a new simapp AppConstructor
 func NewAppConstructor(encodingCfg params.EncodingConfig) AppConstructor {
 	return func(val Validator) servertypes.Application {
-		return app.NewPlanqApp(
+		return app.NewBlackApp(
 			val.Ctx.Logger, dbm.NewMemDB(), nil, true, make(map[int64]bool), val.Ctx.Config.RootDir, 0,
 			encodingCfg,
 			simapp.EmptyAppOptions{},
@@ -125,7 +125,7 @@ func DefaultConfig() Config {
 		AppConstructor:    NewAppConstructor(encCfg),
 		GenesisState:      app.ModuleBasics.DefaultGenesis(encCfg.Codec),
 		TimeoutCommit:     2 * time.Second,
-		ChainID:           fmt.Sprintf("planq_%d-1", tmrand.Int63n(9999999999999)+1),
+		ChainID:           fmt.Sprintf("black_%d-1", tmrand.Int63n(9999999999999)+1),
 		NumValidators:     4,
 		EnableTMLogging:   true,
 		BondDenom:         ethermint.AttoPhoton,
@@ -338,8 +338,8 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 		ctx.Logger = logger
 
 		nodeDirName := fmt.Sprintf("node%d", i)
-		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "planqd")
-		clientDir := filepath.Join(network.BaseDir, nodeDirName, "planqcli")
+		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "blackd")
+		clientDir := filepath.Join(network.BaseDir, nodeDirName, "blackcli")
 		gentxsDir := filepath.Join(network.BaseDir, "gentxs")
 
 		err := os.MkdirAll(filepath.Join(nodeDir, "config"), 0o750)

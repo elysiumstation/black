@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  planqdnode0:
-    container_name: planqdnode0
-    image: "planqd/node"
+  blackdnode0:
+    container_name: blackdnode0
+    image: "blackd/node"
     ports:
       - "26657:26657"
       - "8545:8545"
@@ -11,16 +11,16 @@ services:
       - "8125:8125"
     environment:
       - ID=0
-      - LOG=${LOG:-planqd.log}
+      - LOG=${LOG:-blackd.log}
     volumes:
-      - ./localnet-setup/node0/planqd:/planq:Z
+      - ./localnet-setup/node0/blackd:/black:Z
     networks:
       - localnet
     entrypoint: "bash start-docker.sh"
 
-  planqdnode1:
-    container_name: planqdnode1
-    image: "planqd/node"
+  blackdnode1:
+    container_name: blackdnode1
+    image: "blackd/node"
     ports:
       - "26658:26657"
       - "8555:8545"
@@ -28,43 +28,43 @@ services:
       - "8126:8125"
     environment:
       - ID=1
-      - LOG=${LOG:-planqd.log}
+      - LOG=${LOG:-blackd.log}
     volumes:
-      - ./localnet-setup/node1/planqd:/planq:Z
+      - ./localnet-setup/node1/blackd:/black:Z
     networks:
       - localnet
     entrypoint: "bash start-docker.sh"
 
-  planqdnode2:
-    container_name: planqdnode2
-    image: "planqd/node"
+  blackdnode2:
+    container_name: blackdnode2
+    image: "blackd/node"
     environment:
       - ID=2
-      - LOG=${LOG:-planqd.log}
+      - LOG=${LOG:-blackd.log}
     ports:
       - "26659:26657"
       - "8565:8545"
       - "8566:8546"
       - "8127:8125"
     volumes:
-      - ./localnet-setup/node2/planqd:/planq:Z
+      - ./localnet-setup/node2/blackd:/black:Z
     networks:
       - localnet
     entrypoint: "bash start-docker.sh"
 
-  planqdnode3:
-    container_name: planqdnode3
-    image: "planqd/node"
+  blackdnode3:
+    container_name: blackdnode3
+    image: "blackd/node"
     environment:
       - ID=3
-      - LOG=${LOG:-planqd.log}
+      - LOG=${LOG:-blackd.log}
     ports:
       - "26660:26657"
       - "8575:8545"
       - "8576:8546"
       - "8128:8125"
     volumes:
-      - ./localnet-setup/node3/planqd:/planq:Z
+      - ./localnet-setup/node3/blackd:/black:Z
     networks:
       - localnet
     entrypoint: "bash start-docker.sh"

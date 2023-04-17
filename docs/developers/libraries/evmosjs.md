@@ -4,17 +4,17 @@ order: 1
 
 # EvmosJS
 
-Learn about the EvmosJS Library for connecting clients to Planq. {synopsis}
+Learn about the EvmosJS Library for connecting clients to Black. {synopsis}
 
-[`evmosjs`](https://github.com/evmos/evmosjs) is a JavaScript and TypeScript client library for [Evmos](https://github.com/evmos/evmos), [Planq](https://github.com/planq-network/planq) and [Ethermint](https://github.com/evmos/ethermint) nodes.
+[`evmosjs`](https://github.com/evmos/evmosjs) is a JavaScript and TypeScript client library for [Evmos](https://github.com/evmos/evmos), [Black](https://github.com/xblackfury/black) and [Ethermint](https://github.com/evmos/ethermint) nodes.
 
 ## Tools
 
-- **Address converter:** convert between `eth` and `plq` addresses
-- **Basic transaction generator**: used to create Planq transactions
-- **`EIP-712` transaction generator**: used to create `EIP-712` signed Planq transactions
-- **Protobuf files**: used to create Cosmos Hub and Planq transactions
-- **REST provider**: used to query the Planq REST API and interact with Planq nodes
+- **Address converter:** convert between `eth` and `did:fury:` addresses
+- **Basic transaction generator**: used to create Black transactions
+- **`EIP-712` transaction generator**: used to create `EIP-712` signed Black transactions
+- **Protobuf files**: used to create Cosmos Hub and Black transactions
+- **REST provider**: used to query the Black REST API and interact with Black nodes
 
 ## Package List
 

@@ -59,19 +59,19 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 ### State Machine Breaking
 
-* (all) [#a55b2d22](https://github.com/planq-network/planq/commit/a55b2d22) 
+* (all) [#a55b2d22](https://github.com/xblackfury/black/commit/a55b2d22) 
   Enables `ERC20` module
   Updates `MinGasPrice` to `20000000000`
   Updates `Block.MaxGas` to `40000000`
   Enables `2929`, `2200`, `1884`, `1344` extra EIPs
-* (erc20) [#3e9bede6](https://github.com/planq-network/planq/commit/3e9bede6) `third_party/proto`: add erc20 module support
-* (ethermint) [#a47342ff](https://github.com/planq-network/planq/commit/a47342ff7470e25dfb2fdd45f4f1426e65b25028)  Add `ethermint` as dependency
-* (deps) [#685869a1](https://github.com/planq-network/planq/commit/a47342ff) Bump github.com/cosmos/ibc-go/v5
-* (deps) [#f9c74e23](https://github.com/planq-network/planq/commit/f9c74e23) Update cosmos-sdk to `v0.46.1`
+* (erc20) [#3e9bede6](https://github.com/xblackfury/black/commit/3e9bede6) `third_party/proto`: add erc20 module support
+* (ethermint) [#a47342ff](https://github.com/xblackfury/black/commit/a47342ff7470e25dfb2fdd45f4f1426e65b25028)  Add `ethermint` as dependency
+* (deps) [#685869a1](https://github.com/xblackfury/black/commit/a47342ff) Bump github.com/cosmos/ibc-go/v5
+* (deps) [#f9c74e23](https://github.com/xblackfury/black/commit/f9c74e23) Update cosmos-sdk to `v0.46.1`
 
 ### Improvements
-* (tests) [#f93935c3](https://github.com/planq-network/planq/commit/f93935c3) Add `GetConsensusParams` and `GetGRPCClient` function to network testutil, to test against upgrades and forks
-* (upgrades) [#5a243120](https://github.com/planq-network/planq/commit/5a243120) Update upgrade structure
+* (tests) [#f93935c3](https://github.com/xblackfury/black/commit/f93935c3) Add `GetConsensusParams` and `GetGRPCClient` function to network testutil, to test against upgrades and forks
+* (upgrades) [#5a243120](https://github.com/xblackfury/black/commit/5a243120) Update upgrade structure
 
 
 ## [v0.18.0] - 2022-08-04
@@ -650,7 +650,7 @@ corresponding Ethereum API namespace:
 
 ### API Breaking
 
-* (types) [tharsis#503](https://github.com/cosmos/ethermint/pull/503) The `types.DenomDefault` constant for `"aplanq"` has been renamed to `types.AttoPhoton`.
+* (types) [tharsis#503](https://github.com/cosmos/ethermint/pull/503) The `types.DenomDefault` constant for `"ablack"` has been renamed to `types.AttoPhoton`.
 
 ### Improvements
 
@@ -681,7 +681,7 @@ corresponding Ethereum API namespace:
 * (evm) [tharsis#181](https://github.com/cosmos/ethermint/issues/181) Updated EVM module to the recommended module structure.
 * (app) [tharsis#188](https://github.com/cosmos/ethermint/issues/186)  Misc cleanup:
   * (evm) Rename `EthereumTxMsg` --> `MsgEthereumTx` and `EmintMsg` --> `MsgEthermint` for consistency with SDK standards
-  * Updated integration and unit tests to use `PlanqApp` as testing suite
+  * Updated integration and unit tests to use `BlackApp` as testing suite
   * Use expected `Keeper` interface for `AccountKeeper`
   * Replaced `count` type in keeper with `int`
   * Add SDK events for transactions

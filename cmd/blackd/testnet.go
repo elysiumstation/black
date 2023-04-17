@@ -44,9 +44,9 @@ import (
 	ethermint "github.com/evmos/ethermint/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	cmdcfg "github.com/planq-network/planq/cmd/config"
-	evmoskr "github.com/planq-network/planq/crypto/keyring"
-	"github.com/planq-network/planq/testutil/network"
+	cmdcfg "github.com/xblackfury/black/cmd/config"
+	evmoskr "github.com/xblackfury/black/crypto/keyring"
+	"github.com/xblackfury/black/testutil/network"
 )
 
 var (
@@ -123,7 +123,7 @@ Booting up a network with these validator folders is intended to be used with Do
 or a similar setup where each node has a manually configurable IP address.
 Note, strict routability for addresses is turned off in the config file.
 Example:
-	planqd testnet init-files --v 4 --output-dir ./.testnets --starting-ip-address 192.168.10.2
+	blackd testnet init-files --v 4 --output-dir ./.testnets --starting-ip-address 192.168.10.2
 	`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -150,7 +150,7 @@ Example:
 
 	addTestnetFlagsToCmd(cmd)
 	cmd.Flags().String(flagNodeDirPrefix, "node", "Prefix the directory name for each node with (node results in node0, node1, ...)")
-	cmd.Flags().String(flagNodeDaemonHome, "planqd", "Home directory of the node's daemon configuration")
+	cmd.Flags().String(flagNodeDaemonHome, "blackd", "Home directory of the node's daemon configuration")
 	cmd.Flags().String(flagStartingIPAddress, "192.168.0.1", "Starting IP address (192.168.0.1 results in persistent peers list ID0@192.168.0.1:46656, ID1@192.168.0.2:46656, ...)")
 	cmd.Flags().String(flags.FlagKeyringBackend, flags.DefaultKeyringBackend, "Select keyring's backend (os|file|test)")
 
@@ -166,7 +166,7 @@ func testnetStartCmd() *cobra.Command {
 and generate "v" directories, populated with necessary validator configuration files
 (private validator, genesis, config, etc.).
 Example:
-	planqd testnet --v 4 --output-dir ./.testnets
+	blackd testnet --v 4 --output-dir ./.testnets
 	`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			args := startArgs{}
@@ -208,7 +208,7 @@ func initTestnetFiles(
 	args initArgs,
 ) error {
 	if args.chainID == "" {
-		args.chainID = fmt.Sprintf("planq_%d-1", tmrand.Int63n(9999999999999)+1)
+		args.chainID = fmt.Sprintf("black_%d-1", tmrand.Int63n(9999999999999)+1)
 	}
 
 	nodeIDs := make([]string, args.numValidators)

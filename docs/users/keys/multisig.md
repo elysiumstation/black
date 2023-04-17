@@ -6,7 +6,7 @@ order: 3
 
 Learn how to generate, sign and broadcast a transaction using the keyring multisig {synopsis}
 
-A **multisig account** is an Planq account with a special key that can require more than one signature to sign transactions. This can be useful for increasing the security of the account or for requiring the consent of multiple parties to make transactions. Multisig accounts can be created by specifying:
+A **multisig account** is an Black account with a special key that can require more than one signature to sign transactions. This can be useful for increasing the security of the account or for requiring the consent of multiple parties to make transactions. Multisig accounts can be created by specifying:
 
 - threshold number of signatures required
 - the public keys involved in signing
@@ -16,7 +16,7 @@ To sign with a multisig account, the transaction must be signed individually by 
 ## Generate a Multisig key
 
 ```bash
-planqd keys add --multisig=name1,name2,name3[...] --multisig-threshold=K new_key_name
+blackd keys add --multisig=name1,name2,name3[...] --multisig-threshold=K new_key_name
 ```
 
 `K` is the minimum number of private keys that must have signed the transactions that carry the public key's address as signer.
@@ -26,14 +26,14 @@ The `--multisig` flag must contain the name of public keys that will be combined
 Unless the flag `--nosort` is set, the order in which the keys are supplied on the command line does not matter, i.e. the following commands generate two identical keys:
 
 ```bash
-planqd keys add --multisig=p1,p2,p3 --multisig-threshold=2 multisig_address
-planqd keys add --multisig=p2,p3,p1 --multisig-threshold=2 multisig_address
+blackd keys add --multisig=p1,p2,p3 --multisig-threshold=2 multisig_address
+blackd keys add --multisig=p2,p3,p1 --multisig-threshold=2 multisig_address
 ```
 
 Multisig addresses can also be generated on-the-fly and printed through the which command:
 
 ```bash
-planqd keys show --multisig-threshold=K name1 name2 name3 [...]
+blackd keys show --multisig-threshold=K name1 name2 name3 [...]
 ```
 
 ## Signing a transaction
@@ -45,15 +45,15 @@ Let's assume that you have `test1` and `test2` want to make a multisig account w
 First import the public keys of `test3` into your keyring.
 
 ```sh
-planqd keys add \
+blackd keys add \
     test3 \
-    --pubkey=plqpub1addwnpepqgcxazmq6wgt2j4rdfumsfwla0zfk8e5sws3p3zg5dkm9007hmfysxas0u2
+    --pubkey=did:fury:pub1addwnpepqgcxazmq6wgt2j4rdfumsfwla0zfk8e5sws3p3zg5dkm9007hmfysxas0u2
 ```
 
 Generate the multisig key with 2/3 threshold.
 
 ```sh
-planqd keys add \
+blackd keys add \
     multi \
     --multisig=test1,test2,test3 \
     --multisig-threshold=2
@@ -62,42 +62,42 @@ planqd keys add \
 You can see its address and details:
 
 ```sh
-planqd keys show multi
+blackd keys show multi
 
 - name: multi
   type: multi
-  address: plq1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m
-  pubkey: plqpub1ytql0csgqgfzd666axrjzq3mxw59ys6yqcd3ydjvhgs0uzs6kdk5fp4t73gmkl8t6y02yfq7tvfzd666axrjzq3sd69kp5usk492x6nehqjal67ynv0nfqapzrzy3gmdk27la0kjfqfzd666axrjzq6utqt639ka2j3xkncgk65dup06t297ccljmxhvhu3rmk92u3afjuyz9dg9
+  address: did:fury:1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m
+  pubkey: did:fury:pub1ytql0csgqgfzd666axrjzq3mxw59ys6yqcd3ydjvhgs0uzs6kdk5fp4t73gmkl8t6y02yfq7tvfzd666axrjzq3sd69kp5usk492x6nehqjal67ynv0nfqapzrzy3gmdk27la0kjfqfzd666axrjzq6utqt639ka2j3xkncgk65dup06t297ccljmxhvhu3rmk92u3afjuyz9dg9
   mnemonic: ""
   threshold: 0
   pubkeys: []
 ```
 
-Let's add 10 PLANQ to the multisig wallet:
+Let's add 10 BLACK to the multisig wallet:
 
 ```bash
-planqd tx bank send \
+blackd tx bank send \
     test1 \
-    plq1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
-    10000000000000000000aplanq \
-    --chain-id=planq_7000-1 \
+    did:fury:1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
+    10000000000000000000ablack \
+    --chain-id=black_4200-1 \
     --gas=auto \
-    --fees=1000000aplanq \
+    --fees=1000000ablack \
     --broadcast-mode=block
 ```
 
 ### Step 2: Create the multisig transaction
 
-We want to send 5 PLANQ from our multisig account to `plq1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft`.
+We want to send 5 BLACK from our multisig account to `did:fury:1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft`.
 
 ```bash
-planqd tx bank send \
-    plq1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft \
-    plq157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq \
-    5000000000000000000aplanq \
+blackd tx bank send \
+    did:fury:1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft \
+    did:fury:157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq \
+    5000000000000000000ablack \
     --gas=200000 \
-    --fees=1000000aplanq \
-    --chain-id=planq_7000-1 \
+    --fees=1000000ablack \
+    --chain-id=black_4200-1 \
     --generate-only > unsignedTx.json
 ```
 
@@ -109,11 +109,11 @@ The file `unsignedTx.json` contains the unsigned transaction encoded in JSON.
     "messages": [
       {
         "@type": "/cosmos.bank.v1beta1.MsgSend",
-        "from_address": "plq1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
-        "to_address": "plq157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
+        "from_address": "did:fury:1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
+        "to_address": "did:fury:157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
         "amount": [
           {
-            "denom": "aplanq",
+            "denom": "ablack",
             "amount": "5000000000000000000"
           }
         ]
@@ -129,7 +129,7 @@ The file `unsignedTx.json` contains the unsigned transaction encoded in JSON.
     "fee": {
       "amount": [
         {
-          "denom": "aplanq",
+          "denom": "ablack",
           "amount": "1000000"
         }
       ],
@@ -147,21 +147,21 @@ The file `unsignedTx.json` contains the unsigned transaction encoded in JSON.
 Sign with `test1` and `test2` and create individual signatures.
 
 ```sh
-planqd tx sign \
+blackd tx sign \
     unsignedTx.json \
-    --multisig=plq1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
+    --multisig=did:fury:1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
     --from=test1 \
     --output-document=test1sig.json \
-    --chain-id=planq_7000-1
+    --chain-id=black_4200-1
 ```
 
 ```sh
-planqd tx sign \
+blackd tx sign \
     unsignedTx.json \
-    --multisig=plq1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
+    --multisig=did:fury:1e0fx0q9meawrcq7fmma9x60gk35lpr4xk3884m \
     --from=test2 \
     --output-document=test2sig.json \
-    --chain-id=planq_7000-1
+    --chain-id=black_4200-1
 ```
 
 ### Step 4: Create multisignature
@@ -169,12 +169,12 @@ planqd tx sign \
 Combine signatures to sign transaction.
 
 ```sh
-planqd tx multisign \
+blackd tx multisign \
     unsignedTx.json \
     multi \
     test1sig.json test2sig.json \
     --output-document=signedTx.json \
-    --chain-id=planq_7000-1
+    --chain-id=black_4200-1
 ```
 
 The TX is now signed:
@@ -185,11 +185,11 @@ The TX is now signed:
     "messages": [
       {
         "@type": "/cosmos.bank.v1beta1.MsgSend",
-        "from_address": "plq1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
-        "to_address": "plq157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
+        "from_address": "did:fury:1rgjxswhuxhcrhmyxlval0qa70vxwvqn2e0srft",
+        "to_address": "did:fury:157g6rn6t6k5rl0dl57zha2wx72t633axqyvvwq",
         "amount": [
           {
-            "denom": "aplanq",
+            "denom": "ablack",
             "amount": "5000000000000000000"
           }
         ]
@@ -247,7 +247,7 @@ The TX is now signed:
     "fee": {
       "amount": [
         {
-          "denom": "aplanq",
+          "denom": "ablack",
           "amount": "1000000"
         }
       ],
@@ -265,7 +265,7 @@ The TX is now signed:
 ### Step 5: Broadcast transaction
 
 ```sh
-planqd tx broadcast signedTx.json \
-    --chain-id=planq_7000-1 \
+blackd tx broadcast signedTx.json \
+    --chain-id=black_4200-1 \
     --broadcast-mode=block
 ```

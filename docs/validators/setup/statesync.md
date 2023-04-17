@@ -180,28 +180,28 @@ moniker="NODE_NAME"
 ## Use commands below for Testnet setup
 
 ```bash
-SNAP_RPC1="http://rpc-testnet.planq.network:443"
-SNAP_RPC="http://rpc-testnet.planq.network:443"
-CHAIN_ID="planq_7000-1"
+SNAP_RPC1="http://rpc-testnet.black.network:443"
+SNAP_RPC="http://rpc-testnet.black.network:443"
+CHAIN_ID="black_4200-1"
 PEER="3a6b22e1569d9f85e9e97d1d204a1c457d860926@123.45.67.89:26657"
-wget -O $HOME/genesis.json https://raw.githubusercontent.com/planq-network/networks/main/testnet/planq_7000-1/genesis.json 
+wget -O $HOME/genesis.json https://raw.githubusercontent.com/black-network/networks/main/testnet/black_4200-1/genesis.json 
 ```
 
 ## Use commands below for Mainnet setup
 
 ```bash
-SNAP_RPC1="https://rpc.planq.network:443"
-SNAP_RPC="https://rpc.planq.network:443"
-CHAIN_ID="planq_7070-2"
-PEER="3eb12284b7fb707490b8adfda6fa7d94e2fa5cd9@planq.p2p.roomit.xyz:16603,a3b8955aa523285d0aed51c7bfaf19eb20264ef5@mainnet-planq.konsortech.xyz:26656"
-wget -O $HOME/genesis.json https://raw.githubusercontent.com/planq-network/networks/main/mainnet/genesis.json 
+SNAP_RPC1="https://rpc.black.network:443"
+SNAP_RPC="https://rpc.black.network:443"
+CHAIN_ID="black_42024-2"
+PEER="3eb12284b7fb707490b8adfda6fa7d94e2fa5cd9@black.p2p.roomit.xyz:16603,a3b8955aa523285d0aed51c7bfaf19eb20264ef5@mainnet-black.konsortech.xyz:26656"
+wget -O $HOME/genesis.json https://raw.githubusercontent.com/black-network/networks/main/mainnet/genesis.json 
 ```
 
-### Install planqd
+### Install blackd
 
 ```bash
-git clone https://github.com/planq-network/planq.git && \ 
-cd planq && \ 
+git clone https://github.com/xblackfury/black.git && \ 
+cd black && \ 
 make install
 ```
 
@@ -210,26 +210,26 @@ make install
 Node init
 
 ```bash
-planqd init $moniker --chain-id $CHAIN_ID
+blackd init $moniker --chain-id $CHAIN_ID
 ```
 
-Move genesis file to .planqd/config folder
+Move genesis file to .blackd/config folder
 
 ```bash
-mv $HOME/genesis.json ~/.planqd/config/
+mv $HOME/genesis.json ~/.blackd/config/
 ```
 
 Reset the node
 
 ```bash
-planqd tendermint unsafe-reset-all --home $HOME/.planqd
+blackd tendermint unsafe-reset-all --home $HOME/.blackd
 ```
 
 Change config files (set the node name, add persistent peers, set indexer = "null")
 
 ```bash
-sed -i -e "s%^moniker *=.*%moniker = \"$moniker\"%; " $HOME/.planqd/config/config.toml
-sed -i -e "s%^persistent_peers *=.*%persistent_peers = \"$PEER\"%; " $HOME/.planqd/config/config.toml
+sed -i -e "s%^moniker *=.*%moniker = \"$moniker\"%; " $HOME/.blackd/config/config.toml
+sed -i -e "s%^persistent_peers *=.*%persistent_peers = \"$PEER\"%; " $HOME/.blackd/config/config.toml
 ```
 
 Set the variables for start from snapshot
@@ -261,41 +261,41 @@ s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC1\"| ; \
 
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.planqd/config/config.toml
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" ~/.blackd/config/config.toml
 ```
 
-### Create planqd service
+### Create blackd service
 
 ```bash
 echo "[Unit]
-Description=Planqd Node
+Description=Blackd Node
 After=network.target
 #
 [Service]
 User=$USER
 Type=simple
-ExecStart=$(which planqd) start
+ExecStart=$(which blackd) start
 Restart=on-failure
 LimitNOFILE=65535
 #
 [Install]
-WantedBy=multi-user.target" > $HOME/planqd.service; sudo mv $HOME/planqd.service /etc/systemd/system/
+WantedBy=multi-user.target" > $HOME/blackd.service; sudo mv $HOME/blackd.service /etc/systemd/system/
 ```
 
 ```bash
-sudo systemctl enable planqd.service && sudo systemctl daemon-reload
+sudo systemctl enable blackd.service && sudo systemctl daemon-reload
 ```
 
-### Run planqd
+### Run blackd
 
 ```bash
-sytemctl start planqd
+sytemctl start blackd
 ```
 
 ### Check logs
 
 ```bash
-journalctl -u planqd -f
+journalctl -u blackd -f
 ```
 
 When the node is started it will then attempt to find a state sync snapshot in the network, and restore it:
@@ -326,7 +326,7 @@ The node is now state synced, having joined the network in seconds
 ### Use this command to switch off your State Sync mode, after node fully synced to avoid problems in future node restarts!
 
 ```bash
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.planqd/config/config.toml
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.blackd/config/config.toml
 ```
 
 :::tip

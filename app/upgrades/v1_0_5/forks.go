@@ -6,11 +6,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/planq-network/planq/app/keepers"
+	"github.com/xblackfury/black/app/keepers"
 )
 
 func RunForkLogic(ctx sdk.Context, keepers *keepers.AppKeepers, baseApp *baseapp.BaseApp) {
-	ctx.Logger().Info("Applying Planq v1_0_5 upgrade." +
+	ctx.Logger().Info("Applying Black v1_0_5 upgrade." +
 		" set min commission rate to 4%")
 	setMinCommissionRate(ctx, keepers.StakingKeeper)
 

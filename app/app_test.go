@@ -2,7 +2,7 @@ package app
 
 import (
 	"encoding/json"
-	"github.com/planq-network/planq/cmd/config"
+	"github.com/xblackfury/black/cmd/config"
 	"os"
 	"testing"
 
@@ -21,10 +21,10 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	"github.com/evmos/ethermint/encoding"
-	"github.com/planq-network/planq/types"
+	"github.com/xblackfury/black/types"
 )
 
-func TestPlanqAppExport(t *testing.T) {
+func TestBlackAppExport(t *testing.T) {
 	// create public key
 	privVal := mock.NewPV()
 	pubKey, err := privVal.GetPubKey()
@@ -43,7 +43,7 @@ func TestPlanqAppExport(t *testing.T) {
 	}
 
 	db := dbm.NewMemDB()
-	app := NewPlanqApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), db, nil, true, map[int64]bool{}, DefaultNodeHome, 0, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
+	app := NewBlackApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), db, nil, true, map[int64]bool{}, DefaultNodeHome, 0, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
 
 	genesisState := NewDefaultGenesisState()
 	genesisState = GenesisStateWithValSet(app, genesisState, valSet, []authtypes.GenesisAccount{acc}, balance)
@@ -61,7 +61,7 @@ func TestPlanqAppExport(t *testing.T) {
 	app.Commit()
 
 	// Making a new app object with the db, so that initchain hasn't been called
-	app2 := NewPlanqApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), db, nil, true, map[int64]bool{}, DefaultNodeHome, 0, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
+	app2 := NewBlackApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), db, nil, true, map[int64]bool{}, DefaultNodeHome, 0, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
 	_, err = app2.ExportAppStateAndValidators(false, []string{})
 	require.NoError(t, err, "ExportAppStateAndValidators should not have an error")
 }

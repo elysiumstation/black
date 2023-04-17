@@ -48,16 +48,16 @@ You can find other configuration examples [here](https://github.com/iqlusioninc/
   # Example KMS configuration file
   [[validator]]
   addr = "tcp://localhost:26658"                  # or "unix:///path/to/socket"
-  chain_id = "planq_7070-2"
+  chain_id = "black_42024-2"
   reconnect = true                                # true is the default
   secret_key = "~/.tmkms/secret_connection.key"
 
   [[providers.ledger]]
-  chain_ids = ["planq_7070-2"]
+  chain_ids = ["black_42024-2"]
   ```
 
-- Edit `addr` to point to your `planqd` instance.
-- Adjust `chain-id` to match your `.planqd/config/config.toml` settings.
+- Edit `addr` to point to your `blackd` instance.
+- Adjust `chain-id` to match your `.blackd/config/config.toml` settings.
 - `provider.ledger` has not additional parameters at the moment, however, it is important that you keep that header to enable the feature.
 
 *Plug your Ledger device and open the Tendermint validator app.*
@@ -72,7 +72,7 @@ tmkms keygen ~/.tmkms/secret_connection.key
 
 ### Retrieve validator key
 
-The last step is to retrieve the validator key that you will use in `planqd`.
+The last step is to retrieve the validator key that you will use in `blackd`.
 
 Start the KMS:
 
@@ -84,17 +84,17 @@ The output should look similar to:
 
 ```text
 07:28:24 [INFO] tmkms 0.11.0 starting up...
-07:28:24 [INFO] [keyring:ledger:ledger] added validator key plqvalconspub1zcjduepqy53m39prgp9dz3nz96kaav3el5e0th8ltwcf8cpavqdvpxgr5slsd6wz6f
+07:28:24 [INFO] [keyring:ledger:ledger] added validator key did:fury:valconspub1zcjduepqy53m39prgp9dz3nz96kaav3el5e0th8ltwcf8cpavqdvpxgr5slsd6wz6f
 07:28:24 [INFO] KMS node ID: 1BC12314E2E1C29015B66017A397F170C6ECDE4A
 ```
 
-The KMS may complain that it cannot connect to `planqd`. That is fine, we will fix it in the next section.
-This output indicates the validator key linked to this particular device is: `plqvalconspub1zcjduepqy53m39prgp9dz3nz96kaav3el5e0th8ltwcf8cpavqdvpxgr5slsd6wz6f`
+The KMS may complain that it cannot connect to `blackd`. That is fine, we will fix it in the next section.
+This output indicates the validator key linked to this particular device is: `did:fury:valconspub1zcjduepqy53m39prgp9dz3nz96kaav3el5e0th8ltwcf8cpavqdvpxgr5slsd6wz6f`
 Take note of the validator pubkey that appears in your screen. *We will use it in the next section.*
 
-## Planq configuration
+## Black configuration
 
-You need to enable KMS access by editing `.planqd/config/config.toml`. In this file, modify `priv_validator_laddr` to create a listening address/port or a unix socket in `planqd`.
+You need to enable KMS access by editing `.blackd/config/config.toml`. In this file, modify `priv_validator_laddr` to create a listening address/port or a unix socket in `blackd`.
 
 For example:
 
@@ -106,13 +106,13 @@ priv_validator_laddr = "tcp://127.0.0.1:26658"
 ...
 ```
 
-Let's assume that you have set up your validator account and called it `kmsval`. You can tell planqd the key that we've got in the previous section.
+Let's assume that you have set up your validator account and called it `kmsval`. You can tell blackd the key that we've got in the previous section.
 
 ```bash
-planqd gentx --name kmsval --pubkey <pub_key>
+blackd gentx --name kmsval --pubkey <pub_key>
 ```
 
-Now start `planqd`. You should see that the KMS connects and receives a signature request.
+Now start `blackd`. You should see that the KMS connects and receives a signature request.
 
 Once the Ledger device receives the first message, it will ask for confirmation that the values are adequate.
 

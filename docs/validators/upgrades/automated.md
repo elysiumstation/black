@@ -26,34 +26,34 @@ Set up the Cosmovisor environment variables. We recommend setting these in your 
 
 ```bash
 echo "# Setup Cosmovisor" >> ~/.profile
-echo "export DAEMON_NAME=planqd" >> ~/.profile
-echo "export DAEMON_HOME=$HOME/.planqd" >> ~/.profile
+echo "export DAEMON_NAME=blackd" >> ~/.profile
+echo "export DAEMON_HOME=$HOME/.blackd" >> ~/.profile
 source ~/.profile
 ```
 
-After this, you must make the necessary folders for `cosmosvisor` in your `DAEMON_HOME` directory (`~/.planqd`) and copy over the current binary.
+After this, you must make the necessary folders for `cosmosvisor` in your `DAEMON_HOME` directory (`~/.blackd`) and copy over the current binary.
 
 ```bash
-mkdir -p ~/.planqd/cosmovisor
-mkdir -p ~/.planqd/cosmovisor/genesis
-mkdir -p ~/.planqd/cosmovisor/genesis/bin
-mkdir -p ~/.planqd/cosmovisor/upgrades
+mkdir -p ~/.blackd/cosmovisor
+mkdir -p ~/.blackd/cosmovisor/genesis
+mkdir -p ~/.blackd/cosmovisor/genesis/bin
+mkdir -p ~/.blackd/cosmovisor/upgrades
 
-cp $GOPATH/bin/planqd ~/.planqd/cosmovisor/genesis/bin
+cp $GOPATH/bin/blackd ~/.blackd/cosmovisor/genesis/bin
 ```
 
-To check that you did this correctly, ensure your versions of `cosmovisor` and `planqd` are the same:
+To check that you did this correctly, ensure your versions of `cosmovisor` and `blackd` are the same:
 
 ```bash
 cosmovisor run version
-planqd version
+blackd version
 ```
 
-### 2. Download the Planq release
+### 2. Download the Black release
 
 #### 2.a) Manual Download
 
-Cosmovisor will continually poll the `$DAEMON_HOME/data/upgrade-info.json` for new upgrade instructions. When an upgrade is [released](https://github.com/planq-network/planq/releases), node operators need to:
+Cosmovisor will continually poll the `$DAEMON_HOME/data/upgrade-info.json` for new upgrade instructions. When an upgrade is [released](https://github.com/xblackfury/black/releases), node operators need to:
 
 1. Download (**NOT INSTALL**) the binary for the new release
 2. Place it under `$DAEMON_HOME/cosmovisor/upgrades/<name>/bin`, where `<name>` is the URI-encoded name of the upgrade as specified in the Software Upgrade Plan.
@@ -63,11 +63,11 @@ Cosmovisor will continually poll the `$DAEMON_HOME/data/upgrade-info.json` for n
 ```json
 {
     "binaries": {
-        "darwin/arm64": "https://github.com/planq-network/planq/releases/download/v3.0.0/evmos_3.0.0_Darwin_arm64.tar.gz",
-        "darwin/x86_64": "https://github.com/planq-network/planq/releases/download/v3.0.0/evmos_3.0.0_Darwin_x86_64.tar.gz",
-        "linux/arm64": "https://github.com/planq-network/planq/releases/download/v3.0.0/evmos_3.0.0_Linux_arm64.tar.gz",
-        "linux/amd64": "https://github.com/planq-network/planq/releases/download/v3.0.0/evmos_3.0.0_Linux_amd64.tar.gz",
-        "windows/x86_64": "https://github.com/planq-network/planq/releases/download/v3.0.0/evmos_3.0.0_Windows_x86_64.zip"
+        "darwin/arm64": "https://github.com/xblackfury/black/releases/download/v3.0.0/evmos_3.0.0_Darwin_arm64.tar.gz",
+        "darwin/x86_64": "https://github.com/xblackfury/black/releases/download/v3.0.0/evmos_3.0.0_Darwin_x86_64.tar.gz",
+        "linux/arm64": "https://github.com/xblackfury/black/releases/download/v3.0.0/evmos_3.0.0_Linux_arm64.tar.gz",
+        "linux/amd64": "https://github.com/xblackfury/black/releases/download/v3.0.0/evmos_3.0.0_Linux_amd64.tar.gz",
+        "windows/x86_64": "https://github.com/xblackfury/black/releases/download/v3.0.0/evmos_3.0.0_Windows_x86_64.zip"
     }
 }
 ```
@@ -79,11 +79,11 @@ cosmovisor/
 ├── current/   # either genesis or upgrades/<name>
 ├── genesis
 │   └── bin
-│       └── planqd
+│       └── blackd
 └── upgrades
     └── v3.0.0
         ├── bin
-        │   └── planqd
+        │   └── blackd
         └── upgrade-info.json
 ```
 
@@ -112,9 +112,9 @@ cosmovisor run start
 You will need some way to keep the process always running. If you're on linux, you can do this by creating a service.
 
 ```bash
-sudo tee /etc/systemd/system/planqd.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/blackd.service > /dev/null <<EOF
 [Unit]
-Description=Planq Daemon
+Description=Black Daemon
 After=network-online.target
 
 [Service]
@@ -124,8 +124,8 @@ Restart=always
 RestartSec=3
 LimitNOFILE=infinity
 
-Environment="DAEMON_HOME=$HOME/.planqd"
-Environment="DAEMON_NAME=planqd"
+Environment="DAEMON_HOME=$HOME/.blackd"
+Environment="DAEMON_NAME=blackd"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 
@@ -138,12 +138,12 @@ Then update and start the node
 
 ```bash
 sudo -S systemctl daemon-reload
-sudo -S systemctl enable planqd
-sudo -S systemctl start planqd
+sudo -S systemctl enable blackd
+sudo -S systemctl start blackd
 ```
 
 You can check the status with:
 
 ```bash
-systemctl status planqd
+systemctl status blackd
 ```

@@ -3,8 +3,8 @@ package v1_0_1
 import (
 	"context"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	pApp "github.com/planq-network/planq/app"
-	"github.com/planq-network/planq/testutil/network"
+	pApp "github.com/xblackfury/black/app"
+	"github.com/xblackfury/black/testutil/network"
 	"github.com/stretchr/testify/suite"
 	"testing"
 	"time"
@@ -16,7 +16,7 @@ type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *pApp.PlanqApp
+	app         *pApp.BlackApp
 	consAddress sdk.ConsAddress
 	network     *network.Network
 }

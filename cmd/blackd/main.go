@@ -7,8 +7,8 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/planq-network/planq/app"
-	cmdcfg "github.com/planq-network/planq/cmd/config"
+	"github.com/xblackfury/black/app"
+	cmdcfg "github.com/xblackfury/black/cmd/config"
 )
 
 func main() {

@@ -4,7 +4,7 @@ FROM golang:alpine AS build-env
 ENV PACKAGES git build-base
 
 # Set working directory for the build
-WORKDIR /go/src/github.com/planq-network/planq
+WORKDIR /go/src/github.com/xblackfury/black
 
 # Install dependencies
 RUN apk add --update $PACKAGES
@@ -24,7 +24,7 @@ RUN apk add --update ca-certificates jq
 WORKDIR /
 
 # Copy over binaries from the build-env
-COPY --from=build-env /go/src/github.com/planq-network/planq/build/planqd /usr/bin/planqd
+COPY --from=build-env /go/src/github.com/xblackfury/black/build/blackd /usr/bin/blackd
 
-# Run planqd by default
-CMD ["planqd"]
+# Run blackd by default
+CMD ["blackd"]

@@ -2,26 +2,26 @@
 order: 3
 -->
 
-# Planq Clients
+# Black Clients
 
 Learn about all the available services for clients {synopsis}
 
-The Planq supports different clients in order to support Cosmos and Ethereum transactions
+The Black supports different clients in order to support Cosmos and Ethereum transactions
 and queries:
 
 |                                                        | Description                                                                          | Default Port |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------ |
-| **Cosmos [gRPC](#cosmos-grpc)**                        | Query or send Planq transactions using gRPC                                          | `9090`       |
-| **Cosmos REST ([gRPC-Gateway](#cosmos-grpc-gateway))** | Query or send Planq transactions using an HTTP RESTful API                           | `9091`       |
+| **Cosmos [gRPC](#cosmos-grpc)**                        | Query or send Black transactions using gRPC                                          | `9090`       |
+| **Cosmos REST ([gRPC-Gateway](#cosmos-grpc-gateway))** | Query or send Black transactions using an HTTP RESTful API                           | `9091`       |
 | **Ethereum [JSON-RPC](#ethereum-json-rpc)**            | Query Ethereum-formatted transactions and blocks or send Ethereum txs using JSON-RPC | `8545`       |
 | **Ethereum [Websocket](#ethereum-websocket)**          | Subscribe to Ethereum logs and events emitted in smart contracts.                    | `8586`       |
 | **Tendermint [RPC](#tendermint-rpc)**                  | Subscribe to Ethereum logs and events emitted in smart contracts.                    | `26657`      |
 | **Tendermint [Websocket](#tendermint-websocket)**      | Query transactions, blocks, consensus state, broadcast transactions, etc.            | `26657`      |
-| **Command Line Interface ([CLI](#cli))**               | Query or send Planq transactions using your Terminal or Console.                     | N/A          |
+| **Command Line Interface ([CLI](#cli))**               | Query or send Black transactions using your Terminal or Console.                     | N/A          |
 
 ## Cosmos gRPC
 
-Planq exposes gRPC endpoints for all the integrated Cosmos SDK modules. This makes it easier for
+Black exposes gRPC endpoints for all the integrated Cosmos SDK modules. This makes it easier for
 wallets and block explorers to interact with the Proof-of-Stake logic and native Cosmos transactions and queries.
 
 ### Cosmos gRPC-Gateway (HTTP REST)
@@ -30,13 +30,13 @@ wallets and block explorers to interact with the Proof-of-Stake logic and native
 generates a reverse-proxy server which translates RESTful JSON API into gRPC. With gRPC-Gateway,
 users can use REST to interact with the Cosmos gRPC service.
 
-See the list of supported gRPC-Gateway API endpoints for the Planq testnet [here](https://api.evmos.dev/).
+See the list of supported gRPC-Gateway API endpoints for the Black testnet [here](https://api.evmos.dev/).
 
 ## Ethereum JSON-RPC
 
 <!-- TODO: Link JSON-RPC docs -->
 
-Planq supports most of the standard [JSON-RPC APIs](./json-rpc/server.md) to connect with existing Ethereum-compatible web3 tooling.
+Black supports most of the standard [JSON-RPC APIs](./json-rpc/server.md) to connect with existing Ethereum-compatible web3 tooling.
 
 ::: tip
 Check out the list of supported JSON-RPC API [endpoints](./json-rpc/endpoints.md) and [namespaces](./json-rpc/namespaces.md).
@@ -87,7 +87,7 @@ The main events you can subscribe to are:
 ::: tip
 <!-- markdown-link-check-disable-next-line -->
 👉 The list of events types and values for each Cosmos SDK module can be found in the [Modules Specification](./../modules/README.md) section.
-Check the `Events` page to obtain the event list of each supported module on Planq.
+Check the `Events` page to obtain the event list of each supported module on Black.
 :::
 
 List of all Tendermint event keys:
@@ -159,7 +159,7 @@ Example response:
 
 ## CLI
 
-Users can use the `{{ $themeConfig.project.binary }}` binary to interact directly with an Planq node
+Users can use the `{{ $themeConfig.project.binary }}` binary to interact directly with an Black node
 though the CLI.
 
 ::: tip

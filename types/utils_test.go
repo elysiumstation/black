@@ -16,7 +16,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("plq", "plqpub")
+	cfg.SetBech32PrefixForAccount("did:fury:", "did:fury:pub")
 }
 
 func TestIsSupportedKeys(t *testing.T) {
@@ -72,7 +72,7 @@ func TestIsSupportedKeys(t *testing.T) {
 	}
 }
 
-func TestGetplqAddressFromBech32(t *testing.T) {
+func TestGetdid:fury:AddressFromBech32(t *testing.T) {
 	testCases := []struct {
 		name       string
 		address    string
@@ -87,38 +87,38 @@ func TestGetplqAddressFromBech32(t *testing.T) {
 		},
 		{
 			"invalid bech32 address",
-			"plq",
+			"did:fury:",
 			"",
 			true,
 		},
 		{
 			"invalid address bytes",
-			"plq1123",
+			"did:fury:1123",
 			"",
 			true,
 		},
 		{
-			"plq address",
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury: address",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
 			false,
 		},
 		{
 			"cosmos address",
 			"cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
 			false,
 		},
 		{
 			"osmosis address",
 			"osmo1qql8ag4cluz6r4dz28p3w00dnc9w8ueuhnecd2",
-			"plq1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
+			"did:fury:1qql8ag4cluz6r4dz28p3w00dnc9w8ueuks65at",
 			false,
 		},
 	}
 
 	for _, tc := range testCases {
-		addr, err := GetPlanqAddressFromBech32(tc.address)
+		addr, err := GetBlackAddressFromBech32(tc.address)
 		if tc.expError {
 			require.Error(t, err, tc.name)
 		} else {

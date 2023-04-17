@@ -5,9 +5,9 @@ import (
 )
 
 // RootCodespace is the codespace for all errors defined in this package
-const RootCodespace = "planq"
+const RootCodespace = "black"
 
-// root error codes for Planq
+// root error codes for Black
 const (
 	codeKeyTypeNotSupported = iota + 2
 )

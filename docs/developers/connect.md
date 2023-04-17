@@ -4,11 +4,11 @@ order: 2
 
 # Quick Connect
 
-Quickly connect your app or client to Planq services {synopsis}
+Quickly connect your app or client to Black services {synopsis}
 
 ## Public Available Endpoints
 
-Below is a list of publicly available endpoints that you can use to connect to the Planq mainnet and
+Below is a list of publicly available endpoints that you can use to connect to the Black mainnet and
 public testnets:
 
 ::: tip
@@ -21,10 +21,10 @@ You can also use [chainlist.org](https://chainlist.org/) to add the node directl
 
 | Address                                       | Category               | Maintainer                                 |
 | --------------------------------------------- | ---------------------- |--------------------------------------------|
-| `https://grpc.planq.network`              | `Cosmos` `gRPC`        | [Planq Foundation](https://planq.network/) |
-| `https://rest.planq.network`              | `Cosmos` `REST`        | [Planq Foundation](https://planq.network/)    |
-| `https://rpc.planq.network`       | `Tendermint` `RPC`     | [Planq Foundation](https://planq.network/)    |
-| `https://evm-rpc.planq.network`               | `Ethereum` `JSON-RPC`  | [Planq Foundation](https://planq.network/)    |
+| `https://grpc.black.network`              | `Cosmos` `gRPC`        | [Black Foundation](https://black.network/) |
+| `https://rest.black.network`              | `Cosmos` `REST`        | [Black Foundation](https://black.network/)    |
+| `https://rpc.black.network`       | `Tendermint` `RPC`     | [Black Foundation](https://black.network/)    |
+| `https://evm-rpc.black.network`               | `Ethereum` `JSON-RPC`  | [Black Foundation](https://black.network/)    |
 
 :::
 ::: tab Testnet
@@ -32,10 +32,10 @@ You can also use [chainlist.org](https://chainlist.org/) to add the node directl
 
 | Address                                      | Category               | Maintainer                              |
 | --------------------------------------------- | ---------------------- |--------------------------------------------|
-| `https://grpc.planq.network`              | `Cosmos` `gRPC`        | [Planq Foundation](https://planq.network/) |
-| `https://rest.planq.network`              | `Cosmos` `REST`        | [Planq Foundation](https://planq.network/)    |
-| `https://rpc.planq.network`       | `Tendermint` `RPC`     | [Planq Foundation](https://planq.network/)    |
-| `https://evm-rpc.planq.network`               | `Ethereum` `JSON-RPC`  | [Planq Foundation](https://planq.network/)    |
+| `https://grpc.black.network`              | `Cosmos` `gRPC`        | [Black Foundation](https://black.network/) |
+| `https://rest.black.network`              | `Cosmos` `REST`        | [Black Foundation](https://black.network/)    |
+| `https://rpc.black.network`       | `Tendermint` `RPC`     | [Black Foundation](https://black.network/)    |
+| `https://evm-rpc.black.network`               | `Ethereum` `JSON-RPC`  | [Black Foundation](https://black.network/)    |
 
 :::
 ::::

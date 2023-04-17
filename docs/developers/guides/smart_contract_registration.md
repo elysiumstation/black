@@ -4,9 +4,9 @@ order: 2
 
 # dApp Store Contract Registration
 
-This guide explains how to register your smart contract in the Planq dApp store, and start earning income every time a user interacts with your smart contract. {synopsis}
+This guide explains how to register your smart contract in the Black dApp store, and start earning income every time a user interacts with your smart contract. {synopsis}
 
-The Planq dApp store is a revenue-per-transaction model, which allows developers to get paid for deploying their decentralized application (dApps) on Planq. Developers generate revenue every time a user interacts with their dApp in the dApp store, providing them a steady income. Users can discover new applications in the dApp store and pay for the transaction fees that finance the dApp's revenue. This value-reward exchange of dApp services for transaction fees is implemented by the [x/revenue module](../../../x/revenue/spec/01_concepts.md).
+The Black dApp store is a revenue-per-transaction model, which allows developers to get paid for deploying their decentralized application (dApps) on Black. Developers generate revenue every time a user interacts with their dApp in the dApp store, providing them a steady income. Users can discover new applications in the dApp store and pay for the transaction fees that finance the dApp's revenue. This value-reward exchange of dApp services for transaction fees is implemented by the [x/revenue module](../../../x/revenue/spec/01_concepts.md).
 
 ## Requirements
 
@@ -21,33 +21,33 @@ The Planq dApp store is a revenue-per-transaction model, which allows developers
 
 ## Register Contract
 
-To add your contract in the Planq dApp Store, you need to register a `revenue` for that contract. The `revenue` includes the details for receiving a cut of the transaction fees, which users pay for interacting with your smart contract. Every time a user submits a transaction to your registered smart contract, a part of the transaction fees (50% by default) is transferred to the withdrawer address specified in the `revenue`. If the withdrawer is not specified, the transaction fees are sent to the contract deployer.
+To add your contract in the Black dApp Store, you need to register a `revenue` for that contract. The `revenue` includes the details for receiving a cut of the transaction fees, which users pay for interacting with your smart contract. Every time a user submits a transaction to your registered smart contract, a part of the transaction fees (50% by default) is transferred to the withdrawer address specified in the `revenue`. If the withdrawer is not specified, the transaction fees are sent to the contract deployer.
 
 You can register a contract by signing a transaction with the address that originally deployed the contract. You can use the following CLI command, where
 
 - `$NONCE` is the nonce of transaction that deployed the contract (e.g. `0`),
 - `$CONTRACT` is the hex address of the deployed contract (e.g `0x5f6659B6F712c729c46786bA9562eC50907c67CF`) and
-- (optional) `$WITHDRAWER` is the bech32 address of the address to receive the transaction fees (e.g. `plq1keyy3teyq7t7kuxgeek3v65n0j27k20v2ugysf`):
+- (optional) `$WITHDRAWER` is the bech32 address of the address to receive the transaction fees (e.g. `did:fury:1keyy3teyq7t7kuxgeek3v65n0j27k20v2ugysf`):
 
 ```bash
 # Register a revenue for your contract
-planqd tx revenue register $CONTRACT $NONCE $WITHDRAWER \
+blackd tx revenue register $CONTRACT $NONCE $WITHDRAWER \
 --from=dev0 \ # contract deployer key
---gas=700000 --gas-prices=10000aplanq \ # can vary depending on the network
+--gas=700000 --gas-prices=10000ablack \ # can vary depending on the network
 ```
 
 After your transaction is submitted successfully, you can query your `revenue` with :
 
 ```bash
 # Check revenues
-planqd q revenue contract $CONTRACT
+blackd q revenue contract $CONTRACT
 ```
 
-Congrats ☄️☄️☄️ Now that you've registered a revenue for your contract, it is part of the Planq dApp store and you will receive a cut of the transaction fees every time a user interacts with your contract. If you wondering how large your cut is, have a look at the [revenue parameter `DeveloperShares`](../../../x/revenue/spec/07_parameters.md#developer-shares-amount), which is controlled through governance. You can query the parameters using our [OpenAPI documentation](https://api.evmos.org).
+Congrats ☄️☄️☄️ Now that you've registered a revenue for your contract, it is part of the Black dApp store and you will receive a cut of the transaction fees every time a user interacts with your contract. If you wondering how large your cut is, have a look at the [revenue parameter `DeveloperShares`](../../../x/revenue/spec/07_parameters.md#developer-shares-amount), which is controlled through governance. You can query the parameters using our [OpenAPI documentation](https://api.evmos.org).
 
 ### Deployed Factory Pattern
 
-You can also register a contract which has been deployed by a smart contract instead of an [EOA](https://docs.planq.network/modules/evm/01_concepts.html#accounts). In this case, you need to provide a sequence of nonces that proves the trace from an original deployer who deployed the factory to the contract that is being registered.
+You can also register a contract which has been deployed by a smart contract instead of an [EOA](https://docs.black.network/modules/evm/01_concepts.html#accounts). In this case, you need to provide a sequence of nonces that proves the trace from an original deployer who deployed the factory to the contract that is being registered.
 
 **Example** `DeployerEOA` -> `FactoryA` -> `FactoryB`-> `MyContract`: `DeployerEOA` deploys a `FactoryA` smart contract with nonce `5`. Then, `DeployerEOA` sends a transaction to `FactoryA` through which a `FactoryB` smart contract is created. If we assume `FactoryB` is the second contract created by `FactoryA`, then `FactoryA`'s nonce is `2`. Then, `DeployerEOA` sends a transaction to the `FactoryB` contract, through which `MyContract` is created. If this is the first contract created by FactoryB - the nonce is `1`. To be able to verify that `DeployerEOA` can register `MyContract`, we need to provide the following nonces: `[5, 2, 1]`.
 
@@ -57,8 +57,8 @@ Registered contracts can also be updated. To update the withdrawer address of yo
 
 ```bash
 # Update withdrawer for your contract
-planqd tx revenue update $CONTRACT $WITHDRAWER \
---gas=700000 --gas-prices=10000aplanq \
+blackd tx revenue update $CONTRACT $WITHDRAWER \
+--gas=700000 --gas-prices=10000ablack \
 --from=mm
 ```
 
@@ -70,7 +70,7 @@ Revenues can also be canceled. In order to stop receiving transaction fees for i
 
 ```bash
 # Cancel revenue for your contract
-planqd tx revenue cancel $CONTRACT \
---gas=700000 --gas-prices=10000aplanq \
+blackd tx revenue cancel $CONTRACT \
+--gas=700000 --gas-prices=10000ablack \
 --from=mm
 ```

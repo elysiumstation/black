@@ -12,13 +12,13 @@ Currently there is no public testnet available, the next upcoming one will be an
 
 ## Pick a Testnet
 
-You specify the network you want to join by setting the **genesis file** and **seeds**. If you need more information about past networks, check our [testnets repo](https://github.com/planq-network/networks/testnet).
+You specify the network you want to join by setting the **genesis file** and **seeds**. If you need more information about past networks, check our [testnets repo](https://github.com/black-network/networks/testnet).
 
 | Testnet Chain ID | Description                       | Site | Version                                                                                  | Status  |
 | ---------------- | --------------------------------- |------| ---------------------------------------------------------------------------------------- | ------- |
-| `planq_7000-1`   | Arsia Mons Testnet                | -    | [`v0.1.x`](https://github.com/planq-network/planq/releases)                                    | `Stale` |
+| `black_4200-1`   | Arsia Mons Testnet                | -    | [`v0.1.x`](https://github.com/xblackfury/black/releases)                                    | `Stale` |
 
-## Install `planqd`
+## Install `blackd`
 
 Follow the [installation](./quickstart/installation.md) document to install the {{ $themeConfig.project.name }} binary `{{ $themeConfig.project.binary }}`.
 
@@ -35,7 +35,7 @@ See the Official [Chain IDs](./../users/technical_concepts/chain_id.md#official-
 :::
 
 ```bash
-planqd config chain-id planq_7000-1
+blackd config chain-id black_4200-1
 ```
 
 ## Initialize Node
@@ -43,38 +43,38 @@ planqd config chain-id planq_7000-1
 We need to initialize the node to create all the necessary validator and node configuration files:
 
 ```bash
-planqd init <your_custom_moniker> --chain-id planq_7000-1
+blackd init <your_custom_moniker> --chain-id black_4200-1
 ```
 
 ::: danger
 Monikers can contain only ASCII characters. Using Unicode characters will render your node unreachable.
 :::
 
-By default, the `init` command creates your `~/.planqd` (i.e `$HOME`) directory with subfolders `config/` and `data/`.
+By default, the `init` command creates your `~/.blackd` (i.e `$HOME`) directory with subfolders `config/` and `data/`.
 In the `config` directory, the most important files for configuration are `app.toml` and `config.toml`.
 
 ## Genesis & Seeds
 
 ### Copy the Genesis File
 
-Check the `genesis.json` file from the [`archive`](https://raw.githubusercontent.com/planq-network/networks/main/testnet//planq_7000-1/genesis.json) and copy it over to the `config` directory: `~/.planqd/config/genesis.json`. This is a genesis file with the chain-id and genesis accounts balances.
+Check the `genesis.json` file from the [`archive`](https://raw.githubusercontent.com/black-network/networks/main/testnet//black_4200-1/genesis.json) and copy it over to the `config` directory: `~/.blackd/config/genesis.json`. This is a genesis file with the chain-id and genesis accounts balances.
 
 ```bash
 sudo apt install -y unzip wget
-wget -P ~/.planqd/config https://raw.githubusercontent.com/planq-network/networks/main/testnet//planq_7000-1/genesis.json
+wget -P ~/.blackd/config https://raw.githubusercontent.com/black-network/networks/main/testnet//black_4200-1/genesis.json
 ```
 
 Then verify the correctness of the genesis configuration file:
 
 ```bash
-planqd validate-genesis
+blackd validate-genesis
 ```
 
 ### Add Seed Nodes
 
-Your node needs to know how to find [peers](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#peers). You'll need to add healthy [seed nodes](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#seed) to `$HOME/.planqd/config/config.toml`. The [`testnets`](https://github.com/evmos/testnets) repo contains links to some seed nodes.
+Your node needs to know how to find [peers](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#peers). You'll need to add healthy [seed nodes](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#seed) to `$HOME/.blackd/config/config.toml`. The [`testnets`](https://github.com/evmos/testnets) repo contains links to some seed nodes.
 
-Edit the file located in `~/.planqd/config/config.toml` and the `seeds` to the following:
+Edit the file located in `~/.blackd/config/config.toml` and the `seeds` to the following:
 
 ```toml
 #######################################################
@@ -91,8 +91,8 @@ seeds = "<node-id>@<ip>:<p2p port>"
 You can use the following code to get seeds from the repo and add it to your config:
 
 ```bash
-SEEDS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/planq_7000-1/seeds.txt | awk '{print $1}' | paste -s -d, -`
-sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" ~/.planqd/config/config.toml
+SEEDS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/black_4200-1/seeds.txt | awk '{print $1}' | paste -s -d, -`
+sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" ~/.blackd/config/config.toml
 ```
 
 :::tip
@@ -101,19 +101,19 @@ For more information on seeds and peers, you can the Tendermint [P2P documentati
 
 ### Add Persistent Peers
 
-We can set the [`persistent_peers`](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#persistent-peer) field in `~/.planqd/config/config.toml` to specify peers that your node will maintain persistent connections with. You can retrieve them from the list of
-available peers on the [`testnets`](https://github.com/planq-network/networks/testnet) repo.
+We can set the [`persistent_peers`](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#persistent-peer) field in `~/.blackd/config/config.toml` to specify peers that your node will maintain persistent connections with. You can retrieve them from the list of
+available peers on the [`testnets`](https://github.com/black-network/networks/testnet) repo.
 
-A list of available persistent peers is also available in the `#find-peers` channel in the [Planq Discord](https://discord.gg/jGTPyYmpsq). You can get a random 10 entries from the `peers.txt` file in the `PEERS` variable by running the following command:
+A list of available persistent peers is also available in the `#find-peers` channel in the [Black Discord](https://discord.gg/jGTPyYmpsq). You can get a random 10 entries from the `peers.txt` file in the `PEERS` variable by running the following command:
 
 ```bash
-PEERS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/planq_7000-1/peers.txt | sort -R | head -n 10 | awk '{print $1}' | paste -s -d, -`
+PEERS=`curl -sL https://raw.githubusercontent.com/tharsis/testnets/main/black_4200-1/peers.txt | sort -R | head -n 10 | awk '{print $1}' | paste -s -d, -`
 ```
 
 Use `sed` to include them into the configuration. You can also add them manually:
 
 ```bash
-sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" ~/.planqd/config/config.toml
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" ~/.blackd/config/config.toml
 ```
 
 ## Run a Testnet Validator
@@ -125,17 +125,17 @@ For more details on how to run your validator, follow [these](./setup/run_valida
 :::
 
 ```bash
-planqd tx staking create-validator \
-  --amount=1000000000000atplanq \
-  --pubkey=$(planqd tendermint show-validator) \
-  --moniker="PlanqWhale" \
+blackd tx staking create-validator \
+  --amount=1000000000000atblack \
+  --pubkey=$(blackd tendermint show-validator) \
+  --moniker="BlackWhale" \
   --chain-id=<chain_id> \
   --commission-rate="0.10" \
   --commission-max-rate="0.20" \
   --commission-max-change-rate="0.01" \
   --min-self-delegation="1000000" \
   --gas="auto" \
-  --gas-prices="0.025atplanq" \
+  --gas-prices="0.025atblack" \
   --from=<key_name>
 ```
 
@@ -144,7 +144,7 @@ planqd tx staking create-validator \
 The final step is to [start the nodes](./quickstart/run_node.md#start-node). Once enough voting power (+2/3) from the genesis validators is up-and-running, the testnet will start producing blocks.
 
 ```bash
-planqd start
+blackd start
 ```
 
 ## Upgrading Your Node
@@ -162,8 +162,8 @@ If the version <new_version> you are upgrading to is not breaking from the previ
 First, remove the outdated files and reset the data.
 
 ```bash
-rm $HOME/.planqd/config/addrbook.json $HOME/.planqd/config/genesis.json
-planqd tendermint unsafe-reset-all --home $HOME/.planqd
+rm $HOME/.blackd/config/addrbook.json $HOME/.blackd/config/genesis.json
+blackd tendermint unsafe-reset-all --home $HOME/.blackd
 ```
 
 Your node is now in a pristine state while keeping the original `priv_validator.json` and `config.toml`. If you had any sentry nodes or full nodes setup before,
@@ -179,22 +179,22 @@ Make sure that every node has a unique `priv_validator.json`. Do not copy the `p
 To restart your node, just type:
 
 ```bash
-planqd start
+blackd start
 ```
 
 ## Share your Peer
 
-You can share your peer to posting it in the `#find-peers` channel in the [Planq Discord](https://discord.gg/jGTPyYmpsq).
+You can share your peer to posting it in the `#find-peers` channel in the [Black Discord](https://discord.gg/jGTPyYmpsq).
 
 ::: tip
 To get your Node ID use
 
 ```bash
-planqd tendermint show-node-id
+blackd tendermint show-node-id
 ```
 
 :::
 
 ## State Syncing a Node
 
-If you want to join the network using State Sync (quick, but not applicable for archive nodes), check our [State Sync](https://docs.planq.network/validators/setup/statesync.html) page
+If you want to join the network using State Sync (quick, but not applicable for archive nodes), check our [State Sync](https://docs.black.network/validators/setup/statesync.html) page

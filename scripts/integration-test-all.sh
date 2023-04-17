@@ -17,10 +17,10 @@ RPC_PORT="854"
 IP_ADDR="0.0.0.0"
 
 KEY="dev0"
-CHAINID="planq_7070-1"
+CHAINID="black_42024-1"
 MONIKER="mymoniker"
 
-## default port prefixes for planqd
+## default port prefixes for blackd
 NODE_P2P_PORT="2660"
 NODE_PORT="2663"
 NODE_RPC_PORT="2666"
@@ -52,29 +52,29 @@ done
 
 set -euxo pipefail
 
-DATA_DIR=$(mktemp -d -t planq-datadir.XXXXX)
+DATA_DIR=$(mktemp -d -t black-datadir.XXXXX)
 
 if [[ ! "$DATA_DIR" ]]; then
     echo "Could not create $DATA_DIR"
     exit 1
 fi
 
-# Compile planq
-echo "compiling planq"
+# Compile black
+echo "compiling black"
 make build
 
 # PID array declaration
 arr=()
 
 init_func() {
-    "$PWD"/build/planqd keys add $KEY"$i" --keyring-backend test --home "$DATA_DIR$i" --no-backup --algo "eth_secp256k1"
-    "$PWD"/build/planqd init $MONIKER --chain-id $CHAINID --home "$DATA_DIR$i"
-    "$PWD"/build/planqd add-genesis-account \
-    "$("$PWD"/build/planqd keys show "$KEY$i" --keyring-backend test -a --home "$DATA_DIR$i")" 1000000000000000000aplanq,1000000000000000000stake \
+    "$PWD"/build/blackd keys add $KEY"$i" --keyring-backend test --home "$DATA_DIR$i" --no-backup --algo "eth_secp256k1"
+    "$PWD"/build/blackd init $MONIKER --chain-id $CHAINID --home "$DATA_DIR$i"
+    "$PWD"/build/blackd add-genesis-account \
+    "$("$PWD"/build/blackd keys show "$KEY$i" --keyring-backend test -a --home "$DATA_DIR$i")" 1000000000000000000ablack,1000000000000000000stake \
     --keyring-backend test --home "$DATA_DIR$i"
-    "$PWD"/build/planqd gentx "$KEY$i" 1000000000000000000stake --chain-id $CHAINID --keyring-backend test --home "$DATA_DIR$i"
-    "$PWD"/build/planqd collect-gentxs --home "$DATA_DIR$i"
-    "$PWD"/build/planqd validate-genesis --home "$DATA_DIR$i"
+    "$PWD"/build/blackd gentx "$KEY$i" 1000000000000000000stake --chain-id $CHAINID --keyring-backend test --home "$DATA_DIR$i"
+    "$PWD"/build/blackd collect-gentxs --home "$DATA_DIR$i"
+    "$PWD"/build/blackd validate-genesis --home "$DATA_DIR$i"
 
     if [[ $MODE == "pending" ]]; then
       ls $DATA_DIR$i
@@ -103,17 +103,17 @@ init_func() {
 }
 
 start_func() {
-    echo "starting planq node $i in background ..."
-    "$PWD"/build/planqd start --pruning=nothing --rpc.unsafe \
+    echo "starting black node $i in background ..."
+    "$PWD"/build/blackd start --pruning=nothing --rpc.unsafe \
     --p2p.laddr tcp://$IP_ADDR:$NODE_P2P_PORT"$i" --address tcp://$IP_ADDR:$NODE_PORT"$i" --rpc.laddr tcp://$IP_ADDR:$NODE_RPC_PORT"$i" \
     --json-rpc.address=$IP_ADDR:$RPC_PORT"$i" \
     --keyring-backend test --home "$DATA_DIR$i" \
     >"$DATA_DIR"/node"$i".log 2>&1 & disown
 
-    PLANQ_PID=$!
-    echo "started planq node, pid=$PLANQ_PID"
+    BLACK_PID=$!
+    echo "started black node, pid=$BLACK_PID"
     # add PID to array
-    arr+=("$PLANQ_PID")
+    arr+=("$BLACK_PID")
 
     if [[ $MODE == "pending" ]]; then
       echo "waiting for the first block..."
@@ -147,7 +147,7 @@ if [[ -z $TEST || $TEST == "rpc" ||  $TEST == "pending" ]]; then
 
     for i in $(seq 1 "$TEST_QTD"); do
         HOST_RPC=http://$IP_ADDR:$RPC_PORT"$i"
-        echo "going to test planq node $HOST_RPC ..."
+        echo "going to test black node $HOST_RPC ..."
         MODE=$MODE HOST=$HOST_RPC go test ./tests/... -timeout=$time_out -v -short
 
         RPC_FAIL=$?
@@ -156,12 +156,12 @@ if [[ -z $TEST || $TEST == "rpc" ||  $TEST == "pending" ]]; then
 fi
 
 stop_func() {
-    PLANQ_PID=$i
-    echo "shutting down node, pid=$PLANQ_PID ..."
+    BLACK_PID=$i
+    echo "shutting down node, pid=$BLACK_PID ..."
 
-    # Shutdown planq node
-    kill -9 "$PLANQ_PID"
-    wait "$PLANQ_PID"
+    # Shutdown black node
+    kill -9 "$BLACK_PID"
+    wait "$BLACK_PID"
 
     if [ $REMOVE_DATA_DIR == "true" ]
     then

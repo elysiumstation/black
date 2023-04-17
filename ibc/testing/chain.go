@@ -23,8 +23,8 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 )
 
-// ChainIDPrefix defines the default chain ID prefix for Planq test chains
-var ChainIDPrefix = "planq_7000-"
+// ChainIDPrefix defines the default chain ID prefix for Black test chains
+var ChainIDPrefix = "black_4200-"
 
 func init() {
 	ibcgotesting.ChainIDPrefix = ChainIDPrefix

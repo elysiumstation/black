@@ -15,7 +15,7 @@ import (
 
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/planq-network/planq/app/ante"
+	"github.com/xblackfury/black/app/ante"
 )
 
 func TestAuthzLimiterDecorator(t *testing.T) {

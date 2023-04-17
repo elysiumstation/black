@@ -8,20 +8,20 @@ Learn how to manually upgrade your node. {synopsis}
 
 ## Pre-requisites
 
-- [Install Planq](./../quickstart/installation.md) {prereq}
+- [Install Black](./../quickstart/installation.md) {prereq}
 
-## 1. Upgrade the Planq version
+## 1. Upgrade the Black version
 
-Before upgrading the Planq version. Stop your instance of `planqd` using `Ctrl/Cmd+C`.
+Before upgrading the Black version. Stop your instance of `blackd` using `Ctrl/Cmd+C`.
 
-Next, upgrade the software to the desired release version. Check the Planq [releases page](https://github.com/planq-network/planq/releases) for details on each release.
+Next, upgrade the software to the desired release version. Check the Black [releases page](https://github.com/xblackfury/black/releases) for details on each release.
 
 ::: danger
 Ensure that the version installed matches the one needed for the network you are running (mainnet or testnet).
 :::
 
 ```bash
-cd planq
+cd black
 git fetch --all && git checkout <new_version>
 make install
 ```
@@ -30,13 +30,13 @@ make install
 If you have issues at this step, please check that you have the latest stable version of [Golang](https://golang.org/dl/) installed.
 :::
 
-Verify that you've successfully installed Planq on your system by using the `version` command:
+Verify that you've successfully installed Black on your system by using the `version` command:
 
 ```bash
-$ planqd version --long
+$ blackd version --long
 
-name: planq
-server_name: planqd
+name: black
+server_name: blackd
 version: 3.0.0
 commit: fe9df43332800a74a163c014c69e62765d8206e3
 build_tags: netgo,ledger
@@ -45,7 +45,7 @@ go: go version go1.19 darwin/amd64
 ```
 
 ::: tip
-If the software version does not match, then please check your `$PATH` to ensure the correct `planqd` is running.
+If the software version does not match, then please check your `$PATH` to ensure the correct `blackd` is running.
 :::
 
 ## 2. Replace Genesis file
@@ -53,14 +53,14 @@ If the software version does not match, then please check your `$PATH` to ensure
 ::: tip
 You can find the latest `genesis.json` file for mainnet or testnet in the following repositories:
 
-- **Mainnet**: [github.com/planq-network/networks/mainnet](https://github.com/planq-network/networks/mainnet)
-- **Testnet**: [github.com/planq-network/networks/testnet](https://github.com/planq-network/networks/testnet)
+- **Mainnet**: [github.com/black-network/networks/mainnet](https://github.com/black-network/networks/mainnet)
+- **Testnet**: [github.com/black-network/networks/testnet](https://github.com/black-network/networks/testnet)
 :::
 
 Save the new genesis as `new_genesis.json`. Then, replace the old `genesis.json` located in your `config/` directory with `new_genesis.json`:
 
 ```bash
-cd $HOME/.planqd/config
+cd $HOME/.blackd/config
 cp -f genesis.json new_genesis.json
 mv new_genesis.json genesis.json
 ```
@@ -69,7 +69,7 @@ mv new_genesis.json genesis.json
 We recommend using `sha256sum` to check the hash of the downloaded genesis against the expected genesis.
 
 ```bash
-cd ~/.planqd/config
+cd ~/.blackd/config
 echo "<expected_hash>  genesis.json" | sha256sum -c
 ```
 
@@ -78,14 +78,14 @@ echo "<expected_hash>  genesis.json" | sha256sum -c
 ## 3. Data Reset
 
 ::: danger
-Check [here](./upgrades.md) if the version you are upgrading require a data reset (hard fork). If this is not the case, you can skip to [Restart](https://docs.planq.network/validators/upgrades/manual.html#_4-restart-node).
+Check [here](./upgrades.md) if the version you are upgrading require a data reset (hard fork). If this is not the case, you can skip to [Restart](https://docs.black.network/validators/upgrades/manual.html#_4-restart-node).
 :::
 
 Remove the outdated files and reset the data:
 
 ```bash
-rm $HOME/.planqd/config/addrbook.json
-planqd tendermint unsafe-reset-all --home $HOME/.planqd
+rm $HOME/.blackd/config/addrbook.json
+blackd tendermint unsafe-reset-all --home $HOME/.blackd
 ```
 
 Your node is now in a pristine state while keeping the original `priv_validator.json` and `config.toml`. If you had any sentry nodes or full nodes setup before,
@@ -103,5 +103,5 @@ Make sure that every node has a unique `priv_validator.json`. **DO NOT** copy th
 To restart your node once the new genesis has been updated, use the `start` command:
 
 ```bash
-planqd start
+blackd start
 ```

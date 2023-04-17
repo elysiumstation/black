@@ -17,7 +17,7 @@ import (
 	ethante "github.com/evmos/ethermint/app/ante"
 )
 
-// HandlerOptions defines the list of module keepers required to run the Planq
+// HandlerOptions defines the list of module keepers required to run the Black
 // AnteHandler decorators.
 type HandlerOptions struct {
 	AccountKeeper          evmtypes.AccountKeeper

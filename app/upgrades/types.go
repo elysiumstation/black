@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	"github.com/planq-network/planq/app/keepers"
+	"github.com/xblackfury/black/app/keepers"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 

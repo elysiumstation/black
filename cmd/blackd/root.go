@@ -41,16 +41,16 @@ import (
 	servercfg "github.com/evmos/ethermint/server/config"
 	srvflags "github.com/evmos/ethermint/server/flags"
 
-	"github.com/planq-network/planq/app"
-	cmdcfg "github.com/planq-network/planq/cmd/config"
-	evmoskr "github.com/planq-network/planq/crypto/keyring"
+	"github.com/xblackfury/black/app"
+	cmdcfg "github.com/xblackfury/black/cmd/config"
+	evmoskr "github.com/xblackfury/black/crypto/keyring"
 )
 
 const (
-	EnvPrefix = "PLANQ"
+	EnvPrefix = "BLACK"
 )
 
-// NewRootCmd creates a new root command for planqd. It is called once in the
+// NewRootCmd creates a new root command for blackd. It is called once in the
 // main function.
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	encodingConfig := encoding.MakeConfig(app.ModuleBasics)
@@ -68,7 +68,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 
 	rootCmd := &cobra.Command{
 		Use:   app.Name,
-		Short: "Planq Daemon",
+		Short: "Black Daemon",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -83,7 +83,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 			gasPrice, _ := cmd.Flags().GetString(flags.FlagGasPrices)
 
 			if len(gasPrice) == 0 {
-				cmd.Flags().Set(flags.FlagGasPrices, "300000000000aplanq")
+				cmd.Flags().Set(flags.FlagGasPrices, "300000000000ablack")
 			}
 
 			initClientCtx, err := client.ReadPersistentCommandFlags(initClientCtx, cmd.Flags())
@@ -259,7 +259,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		cast.ToUint32(appOpts.Get(sdkserver.FlagStateSyncSnapshotKeepRecent)),
 	)
 
-	planqApp := app.NewPlanqApp(
+	blackApp := app.NewBlackApp(
 		logger, db, traceStore, true, skipUpgradeHeights,
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(sdkserver.FlagInvCheckPeriod)),
@@ -278,7 +278,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		baseapp.SetIAVLDisableFastNode(cast.ToBool(appOpts.Get(sdkserver.FlagIAVLFastNode))),
 	)
 
-	return planqApp
+	return blackApp
 }
 
 // appExport creates a new simapp (optionally at a given height)
@@ -287,23 +287,23 @@ func (a appCreator) appExport(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailAllowedAddrs []string,
 	appOpts servertypes.AppOptions,
 ) (servertypes.ExportedApp, error) {
-	var planqApp *app.PlanqApp
+	var blackApp *app.BlackApp
 	homePath, ok := appOpts.Get(flags.FlagHome).(string)
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
 
 	if height != -1 {
-		planqApp = app.NewPlanqApp(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
+		blackApp = app.NewBlackApp(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
 
-		if err := planqApp.LoadHeight(height); err != nil {
+		if err := blackApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	} else {
-		planqApp = app.NewPlanqApp(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
+		blackApp = app.NewBlackApp(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
 	}
 
-	return planqApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs)
+	return blackApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs)
 }
 
 // initTendermintConfig helps to override default Tendermint Config values.

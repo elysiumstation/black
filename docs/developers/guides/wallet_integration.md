@@ -4,7 +4,7 @@ order: 1
 
 # Wallet Integration
 
-Learn how to properly integrate [Metamask](https://metamask.io/) or [Keplr](https://www.keplr.app/) with a dApp on Planq. {synopsis}
+Learn how to properly integrate [Metamask](https://metamask.io/) or [Keplr](https://www.keplr.app/) with a dApp on Black. {synopsis}
 
 :::tip
 **Note**: want to learn more about wallet integration beyond what's covered here? Check out both the [MetaMask Wallet documentation](https://docs.metamask.io/guide/) and [Keplr Wallet documentation](https://docs.keplr.app/).
@@ -45,7 +45,7 @@ After the user's wallet type has been determined, developers can proceed with cr
 #### Create the Transaction
 
 :::tip
-**Note**: The example below uses the Planq Testnet `chainID`. For more info, check the Planq Chain IDs reference document [here](../../users/technical_concepts/chain_id.md).
+**Note**: The example below uses the Black Testnet `chainID`. For more info, check the Black Chain IDs reference document [here](../../users/technical_concepts/chain_id.md).
 :::
 
 Developers can create `MsgSend` transactions using the [evmosjs](../libraries/evmosjs.md) library.
@@ -55,11 +55,11 @@ import { createMessageSend } from @tharsis/transactions
 
 const chain = {
     chainId: 7000,
-    cosmosChainId: 'planq_7000-1',
+    cosmosChainId: 'black_4200-1',
 }
 
 const sender = {
-    accountAddress: 'plq1mx9nqk5agvlsvt2yc8259nwztmxq7zjq50mxkp',
+    accountAddress: 'did:fury:1mx9nqk5agvlsvt2yc8259nwztmxq7zjq50mxkp',
     sequence: 1,
     accountNumber: 9,
     pubkey: 'AgTw+4v0daIrxsNSW4FcQ+IoingPseFwHO1DnssyoOqZ',
@@ -67,16 +67,16 @@ const sender = {
 
 const fee = {
     amount: '20',
-    denom: 'aplanq',
+    denom: 'ablack',
     gas: '200000',
 }
 
 const memo = ''
 
 const params = {
-    destinationAddress: 'plq1pmk2r32ssqwps42y3c9d4clqlca403yd9wymgr',
+    destinationAddress: 'did:fury:1pmk2r32ssqwps42y3c9d4clqlca403yd9wymgr',
     amount: '1',
-    denom: 'aplanq',
+    denom: 'ablack',
 }
 
 const msg = createMessageSend(chain, sender, fee, memo, params)
@@ -91,7 +91,7 @@ const msg = createMessageSend(chain, sender, fee, memo, params)
 <!-- textlint-disable -->
 After creating the transaction, developers need to send the payload to the appropriate wallet to be signed ([`msg.signDirect`](https://docs.keplr.app/api/#sign-direct-protobuf) is the transaction in Keplr format, and `msg.eipToSign` is the [`EIP712`](https://eips.ethereum.org/EIPS/eip-712) data to sign with MetaMask).
 
-With the signature, we add a Web3Extension to the transaction and broadcast it to the Planq node.
+With the signature, we add a Web3Extension to the transaction and broadcast it to the Black node.
 
 <!-- textlint-enable -->
 ```js
@@ -125,7 +125,7 @@ const postOptions = {
 };
 
 let broadcastPost = await fetch(
-    `https://evm-rpc.planq.network${generateEndpointBroadcast()}`,
+    `https://evm-rpc.black.network${generateEndpointBroadcast()}`,
     postOptions
 );
 let response = await broadcastPost.json();
@@ -138,13 +138,13 @@ Developers can use Metamask or Keplr to help users sign off on EVM transactions 
 ```js
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { evmosToEth } from "@tharsis/address-converter"
-const provider = new JsonRpcProvider('https://evm-rpc.planq.network');
-const chainId = 'planq_7070-2';
+const provider = new JsonRpcProvider('https://evm-rpc.black.network');
+const chainId = 'black_42024-2';
 
 // EIP-1559
 async function signAndBroadcastEthereumTx() {
 
-  // Enable access to Planq on Keplr
+  // Enable access to Black on Keplr
   await window.keplr.enable(chainId);
   
   // Get Keplr signer address
@@ -219,4 +219,4 @@ async function signAndBroadcastEthereumTx() {
 
 ### Connections
 
-For Ethereum RPC, Planq gRPC, and/or REST queries, dApp developers should implement providers client-side, and store RPC details in the environment variable as secrets.
+For Ethereum RPC, Black gRPC, and/or REST queries, dApp developers should implement providers client-side, and store RPC details in the environment variable as secrets.

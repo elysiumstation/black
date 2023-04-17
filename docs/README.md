@@ -1,14 +1,14 @@
 <!--
 layout: home
-title: Planq Documentation
-description: Planq is a scalable and interoperable Ethereum blockchain, built on Proof-of-Stake with fast-finality.
+title: Black Documentation
+description: Black is a scalable and interoperable Ethereum blockchain, built on Proof-of-Stake with fast-finality.
 sections:
   - title: Introduction
-    desc: Read a high-level overview of Planq and its architecture.
+    desc: Read a high-level overview of Black and its architecture.
     url: /about/intro/overview
     icon: ethereum-intro
   - title: Basics
-    desc: Start with the basic concepts of Planq, like accounts and transactions.
+    desc: Start with the basic concepts of Black, like accounts and transactions.
     url: /users/basics/transactions
     icon: basics
 stack:
@@ -23,7 +23,7 @@ stack:
     label: ethereum-black
     url: https://eth.wiki
   - title: Tendermint Core
-    desc: The leading BFT engine for building blockchains, powering Planq.
+    desc: The leading BFT engine for building blockchains, powering Black.
     color: "#00BB00"
     label: core
     url: http://docs.tendermint.com
@@ -32,17 +32,17 @@ footer:
 aside: false
 -->
 
-# Planq Documentation
+# Black Documentation
 
 ## Get Started
 
-- **[Introduction](./about/intro/overview.md)**: High-level overview of Planq.
+- **[Introduction](./about/intro/overview.md)**: High-level overview of Black.
 
 ## Reference
 
-- **[Users](./users/)**: Documentation on relevant technical concepts for users like `accounts`, `gas`, `tokens` or `transactions` on Planq as well as more advanced topics.
+- **[Users](./users/)**: Documentation on relevant technical concepts for users like `accounts`, `gas`, `tokens` or `transactions` on Black as well as more advanced topics.
 - **[Developers](./developers/)**: Documentation on `block explorers`, `clients`, the `JSON-RPC` implementation or the testnet `faucet` can be found here.
-- **[Validators](./validators/)**: Documentation on how to become an Planq validator, hardware requirements, configuring a `node` and connecting to the `testnet` and `mainnet`,
+- **[Validators](./validators/)**: Documentation on how to become an Black validator, hardware requirements, configuring a `node` and connecting to the `testnet` and `mainnet`,
 
 ## Other Resources
 
@@ -52,4 +52,4 @@ aside: false
 
 ## Contribute
 
-See [this file](https://github.com/planq-network/planq/blob/main/docs/DOCS_README.md) for details of the build process and considerations when making changes.
+See [this file](https://github.com/xblackfury/black/blob/main/docs/DOCS_README.md) for details of the build process and considerations when making changes.

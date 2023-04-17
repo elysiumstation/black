@@ -30,15 +30,15 @@ To build start a 4 node testnet run:
 make localnet-start
 ```
 
-This command creates a 4-node network using the `planqdnode` Docker image.
+This command creates a 4-node network using the `blackdnode` Docker image.
 The ports for each node are found in this table:
 
 | Node ID          | P2P Port | Tendermint RPC Port | REST/ Ethereum JSON-RPC Port | WebSocket Port |
 |------------------|----------|---------------------|------------------------------|----------------|
-| `planqnode0` | `26656`  | `26657`             | `8545`                       | `8546`         |
-| `planqnode1` | `26659`  | `26660`             | `8547`                       | `8548`         |
-| `planqnode2` | `26661`  | `26662`             | `8549`                       | `8550`         |
-| `planqnode3` | `26663`  | `26664`             | `8551`                       | `8552`         |
+| `blacknode0` | `26656`  | `26657`             | `8545`                       | `8546`         |
+| `blacknode1` | `26659`  | `26660`             | `8547`                       | `8548`         |
+| `blacknode2` | `26661`  | `26662`             | `8549`                       | `8550`         |
+| `blacknode3` | `26663`  | `26664`             | `8551`                       | `8552`         |
 
 To update the binary, just rebuild it and restart the nodes
 
@@ -50,11 +50,11 @@ The command above  command will run containers in the background using Docker co
 
 ```bash
 ...
-Creating network "planq_localnet" with driver "bridge"
-Creating planqdnode0 ... done
-Creating planqdnode2 ... done
-Creating planqdnode1 ... done
-Creating planqdnode3 ... done
+Creating network "black_localnet" with driver "bridge"
+Creating blackdnode0 ... done
+Creating blackdnode2 ... done
+Creating blackdnode1 ... done
+Creating blackdnode3 ... done
 ```
 
 ### Stop Localnet
@@ -68,55 +68,55 @@ make localnet-stop
 ### Configuration
 
 The `make localnet-start` creates files for a 4-node testnet in `./build` by
-calling the `planqd testnet` command. This outputs a handful of files in the
+calling the `blackd testnet` command. This outputs a handful of files in the
 `./build` directory:
 
 ```bash
 tree -L 3 build/
 
 build/
-├── planqd
-├── planqd
+├── blackd
+├── blackd
 ├── gentxs
 │   ├── node0.json
 │   ├── node1.json
 │   ├── node2.json
 │   └── node3.json
 ├── node0
-│   ├── planqd
+│   ├── blackd
 │   │   ├── key_seed.json
 │   │   └── keyring-test-cosmos
-│   └── planqd
+│   └── blackd
 │       ├── config
 │       ├── data
-│       └── planqd.log
+│       └── blackd.log
 ├── node1
-│   ├── planqd
+│   ├── blackd
 │   │   ├── key_seed.json
 │   │   └── keyring-test-cosmos
-│   └── planqd
+│   └── blackd
 │       ├── config
 │       ├── data
-│       └── planqd.log
+│       └── blackd.log
 ├── node2
-│   ├── planqd
+│   ├── blackd
 │   │   ├── key_seed.json
 │   │   └── keyring-test-cosmos
-│   └── planqd
+│   └── blackd
 │       ├── config
 │       ├── data
-│       └── planqd.log
+│       └── blackd.log
 └── node3
-    ├── planqd
+    ├── blackd
     │   ├── key_seed.json
     │   └── keyring-test-cosmos
-    └── planqd
+    └── blackd
         ├── config
         ├── data
-        └── planqd.log
+        └── blackd.log
 ```
 
-Each `./build/nodeN` directory is mounted to the `/planqd` directory in each container.
+Each `./build/nodeN` directory is mounted to the `/blackd` directory in each container.
 
 ### Logging
 
@@ -124,10 +124,10 @@ In order to see the logs of a particular node you can use the following command:
 
 ```bash
 # node 0: daemon logs
-docker exec planqdnode0 tail planqd.log
+docker exec blackdnode0 tail blackd.log
 
 # node 0: REST & RPC logs
-docker exec planqdnode0 tail planqd.log
+docker exec blackdnode0 tail blackd.log
 ```
 
 The logs for the daemon will look like:
@@ -165,7 +165,7 @@ You can also watch logs as they are produced via Docker with the `--follow` (`-f
 example:
 
 ```bash
-docker logs -f planqdnode0
+docker logs -f blackdnode0
 ```
 
 ### Interact with the Localnet
@@ -192,18 +192,18 @@ Additional instructions on how to interact with the WebSocket can be found on th
 
 ### Keys & Accounts
 
-To interact with `planqd` and start querying state or creating txs, you use the
-`planqd` directory of any given node as your `home`, for example:
+To interact with `blackd` and start querying state or creating txs, you use the
+`blackd` directory of any given node as your `home`, for example:
 
 ```bash
-planqd keys list --home ./build/node0/planqd
+blackd keys list --home ./build/node0/blackd
 ```
 
 Now that accounts exists, you may create new accounts and send those accounts
 funds!
 
 ::: tip
-**Note**: Each node's seed is located at `./build/nodeN/planqd/key_seed.json` and can be restored to the CLI using the `planqd keys add --restore` command
+**Note**: Each node's seed is located at `./build/nodeN/blackd/key_seed.json` and can be restored to the CLI using the `blackd keys add --restore` command
 :::
 
 ### Special Binaries
@@ -212,5 +212,5 @@ If you have multiple binaries with different names, you can specify which one to
 
 ```bash
 # Run with custom binary
-BINARY=planq make localnet-start
+BINARY=black make localnet-start
 ```

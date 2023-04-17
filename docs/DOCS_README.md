@@ -1,6 +1,6 @@
 # Updating the docs
 
-If you want to open a PR on the Cosmos SDK to update the documentation, please follow the guidelines in the [`CONTRIBUTING.md`](https://github.com/planq-network/planq/tree/main/CONTRIBUTING.md#updating-documentation)
+If you want to open a PR on the Cosmos SDK to update the documentation, please follow the guidelines in the [`CONTRIBUTING.md`](https://github.com/xblackfury/black/tree/main/CONTRIBUTING.md#updating-documentation)
 
 ## Translating
 
@@ -11,10 +11,10 @@ If you want to open a PR on the Cosmos SDK to update the documentation, please f
 
 ## Docs Build Workflow
 
-The documentation for Planq is hosted at [docs.planq.network](https://docs.planq.network/)
+The documentation for Black is hosted at [docs.black.network](https://docs.black.network/)
 
 built from the files in this (`/docs`) directory for
-[master](https://github.com/planq-network/planq/tree/main/docs).
+[master](https://github.com/xblackfury/black/tree/main/docs).
 
 ### How It Works
 
@@ -105,7 +105,7 @@ We are using [Algolia](https://www.algolia.com) to power full-text search. This 
    1. Directly Edit API docs manually: `client/lcd/swagger-ui/swagger.yaml`.
    2. Edit API docs within the [Swagger Editor](https://editor.swagger.io/). Please refer to this [document](https://swagger.io/docs/specification/2-0/basic-structure/) for the correct structure in `.yaml`.
 3. Download `swagger.yaml` and replace the old `swagger.yaml` under fold `client/lcd/swagger-ui`.
-4. Compile planqd
+4. Compile blackd
 
    ```bash
    make install

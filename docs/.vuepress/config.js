@@ -1,6 +1,6 @@
 module.exports = {
   theme: "cosmos",
-  title: "Planq Documentation",
+  title: "Black Documentation",
   locales: {
     "/": {
       lang: "en-US",
@@ -64,21 +64,21 @@ module.exports = {
     // ['link', { rel: "apple-touch-icon-precomposed", href: "/apple-touch-icon-precomposed.png" }],
   ],
   themeConfig: {
-    repo: "planq-network/planq",
-    docsRepo: "planq-network/planq",
+    repo: "xblackfury/black",
+    docsRepo: "xblackfury/black",
     docsBranch: "main",
     docsDir: "docs",
     editLinks: true,
     custom: true,
     project: {
-      name: "Planq",
-      denom: "Planq",
+      name: "Black",
+      denom: "Black",
       ticker: "PLQ",
-      binary: "planqd",
-      testnet_denom: "tPlanq",
+      binary: "blackd",
+      testnet_denom: "tBlack",
       testnet_ticker: "tPLQ",
-      rpc_url: "https://evm-rpc.planq.network",
-      rpc_url_testnet: "https://evm-rpc.planq.network",
+      rpc_url: "https://evm-rpc.black.network",
+      rpc_url_testnet: "https://evm-rpc.black.network",
       rpc_url_local: "http://localhost:8545/",
       chain_id: "7070",
       testnet_chain_id: "7000",
@@ -87,18 +87,18 @@ module.exports = {
       testnet_version: "v1.0.0",
       version_number: "2",
       testnet_version_number: "1",
-      testnet_evm_explorer_url: "https://evm.planq.network",
-      evm_explorer_url: "https://evm.planq.network",
-      testnet_cosmos_explorer_url: "https://explorer.planq.network",
-      cosmos_explorer_url: "https://explorer.planq.network",
+      testnet_evm_explorer_url: "https://evm.black.network",
+      evm_explorer_url: "https://evm.black.network",
+      testnet_cosmos_explorer_url: "https://explorer.black.network",
+      cosmos_explorer_url: "https://explorer.black.network",
     },
     logo: {
-      src: "/planq-logo.svg",
+      src: "/black-logo.svg",
     },
     algolia: {
       id: process.env.ALGOLIA_ID || '',
       key: process.env.ALGOLIA_KEY || '',
-      index: "planq",
+      index: "black",
     },
     topbar: {
       banner: false,
@@ -107,7 +107,7 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "About Planq",
+          title: "About Black",
           children: [
             {
               title: "Introduction",
@@ -120,8 +120,8 @@ module.exports = {
               path: "/about/airdrop",
             },
             {
-              title: "Planq Ecosystem",
-              path: "https://planq.network/ecosystem",
+              title: "Black Ecosystem",
+              path: "https://black.network/ecosystem",
             },
           ],
         },
@@ -144,7 +144,7 @@ module.exports = {
               path: "/users/keys",
             },
             {
-              title: "Planq Governance",
+              title: "Black Governance",
               directory: true,
               path: "/users/governance",
             },
@@ -205,7 +205,7 @@ module.exports = {
             },
             {
               title: "Cosmos gRPC & REST",
-              path: "https://api.planq.network/",
+              path: "https://api.black.network/",
             },
             {
               title: "Tendermint RPC",
@@ -232,8 +232,8 @@ module.exports = {
               path: "/protocol/ibc",
             },
             {
-              title: "Planq Go API",
-              path: "https://pkg.go.dev/github.com/planq-network/planq",
+              title: "Black Go API",
+              path: "https://pkg.go.dev/github.com/xblackfury/black",
             },
             {
               title: "Ethermint Library Go API",
@@ -309,11 +309,11 @@ module.exports = {
             },
             {
               title: "Blockscout (EVM)",
-              path: "https://evm.planq.network",
+              path: "https://evm.black.network",
             },
             {
               title: "Big Dipper (Cosmos)",
-              path: "https://explorer.planq.network/",
+              path: "https://explorer.black.network/",
             },
           ],
         },
@@ -323,14 +323,14 @@ module.exports = {
       title: "Help & Support",
       chat: {
         title: "Discord Channel",
-        text: "Chat with Planq users and team on Discord.",
+        text: "Chat with Black users and team on Discord.",
         url: "https://discord.gg/jGTPyYmpsq",
         bg: "linear-gradient(103.75deg, #1B1E36 0%, #22253F 100%)",
       },
       forum: {
         title: "Commonwealth Forum",
-        text: "Join the Planq Commonwealth forum",
-        url: "https://commonwealth.im/planq",
+        text: "Join the Black Commonwealth forum",
+        url: "https://commonwealth.im/black",
         bg: "linear-gradient(221.79deg, #3D6B99 -1.08%, #336699 95.88%)",
       },
       github: {
@@ -342,24 +342,24 @@ module.exports = {
     footer: {
       logo: "",
       textLink: {
-        text: "planq.network",
-        url: "https://planq.network",
+        text: "black.network",
+        url: "https://black.network",
       },
       services: [
         {
           service: "github",
-          url: "https://github.com/planq-network/planq",
+          url: "https://github.com/xblackfury/black",
         },
         {
           service: "twitter",
-          url: "https://twitter.com/PlanqFoundation",
+          url: "https://twitter.com/BlackFoundation",
         },
         {
           service: "reddit",
-          url: "https://reddit.com/r/planq_network",
+          url: "https://reddit.com/r/black_network",
         },
       ],
-      smallprint: "This website is maintained by Planq Foundation",
+      smallprint: "This website is maintained by Black Foundation",
       links: [
         {
           title: "Ecosystem Documentation",
@@ -382,12 +382,12 @@ module.exports = {
           title: "Community",
           children: [
             {
-              title: "Planq Discord Community",
+              title: "Black Discord Community",
               url: "https://discord.gg/jGTPyYmpsq",
             },
             {
-              title: "Planq on Reddit",
-              url: "https://reddit.com/r/planq_network",
+              title: "Black on Reddit",
+              url: "https://reddit.com/r/black_network",
             },
           ],
         },

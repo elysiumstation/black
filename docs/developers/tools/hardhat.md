@@ -4,7 +4,7 @@ order: 2
 
 # Hardhat: Deploying a Smart Contract
 
-Learn how to deploy a simple Solidity-based smart contract to Planq using the Hardhat environment {synopsis}
+Learn how to deploy a simple Solidity-based smart contract to Black using the Hardhat environment {synopsis}
 
 [Hardhat](https://hardhat.org/) is a flexible development environment for building Ethereum-based smart contracts. It is designed with integrations and extensibility in mind
 
@@ -101,7 +101,7 @@ module.exports = {
     hardhat: {
     },
     testnet: {
-      url: "https://evm-rpc.planq.network",
+      url: "https://evm-rpc.black.network",
       accounts: [privateKey1, privateKey2, ...]
     }
   },

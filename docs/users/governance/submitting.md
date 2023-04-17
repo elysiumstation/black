@@ -41,11 +41,11 @@ Many proposals allow for long form text to be included, usually under the key `d
 
 ### Text Proposals
 
-`TextProposal`s are used by delegators to agree to a certain strategy, plan, commitment, future upgrade, or any other statement in the form of text. Aside from having a record of the proposal outcome on the Planq chain, a text proposal has no direct effect on Planq.
+`TextProposal`s are used by delegators to agree to a certain strategy, plan, commitment, future upgrade, or any other statement in the form of text. Aside from having a record of the proposal outcome on the Black chain, a text proposal has no direct effect on Black.
 
 #### Real Example
 
-[Proposal 2](https://ping.pub/planq/gov/2) was a Slashing Param Change.
+[Proposal 2](https://ping.pub/black/gov/2) was a Slashing Param Change.
 
 ```json
 {
@@ -58,7 +58,7 @@ Many proposals allow for long form text to be included, usually under the key `d
       "value": "20000"
     }
   ],
-  "deposit": "500000000000000000000aplanq"
+  "deposit": "500000000000000000000ablack"
 }
 ```
 
@@ -68,30 +68,30 @@ For community pool spend proposals, there are five components:
 
 1. **Title** - the distinguishing name of the proposal, typically the way the that explorers list proposals
 2. **Description** - the body of the proposal that further describes what is being proposed and details surrounding the proposal
-3. **Recipient** - the Planq (bech32-based) address that will receive funding from the Community Pool
-4. **Amount** - the amount of funding that the recipient will receive in atto-PLANQ (`aplanq`)
-5. **Deposit** - the amount that will be contributed to the deposit (in `aplanq`) from the account submitting the proposal
+3. **Recipient** - the Black (bech32-based) address that will receive funding from the Community Pool
+4. **Amount** - the amount of funding that the recipient will receive in atto-BLACK (`ablack`)
+5. **Deposit** - the amount that will be contributed to the deposit (in `ablack`) from the account submitting the proposal
 
 #### Made-Up Example
 
-In this simple example (below), a network explorer will list the governance proposal as a `CommunityPoolSpendProposal`. When an observer selects the proposal, they'll see the description. Not all explorers will show the recipient and amount, so ensure that you verify that the description aligns with the what the governance proposal is programmed to enact. If the description says that a certain address will receive a certain number of PLANQ, it should also be programmed to do that, but it's possible that that's not the case (accidentally or otherwise).
+In this simple example (below), a network explorer will list the governance proposal as a `CommunityPoolSpendProposal`. When an observer selects the proposal, they'll see the description. Not all explorers will show the recipient and amount, so ensure that you verify that the description aligns with the what the governance proposal is programmed to enact. If the description says that a certain address will receive a certain number of BLACK, it should also be programmed to do that, but it's possible that that's not the case (accidentally or otherwise).
 
-The `amount` is `1000000000000000000aplanq`. This is equal to 1 PLANQ, so `recipient` address `plq1mx9nqk5agvlsvt2yc8259nwztmxq7zjq50mxkp` will receive 1 PLANQ if this proposal is passed.
+The `amount` is `1000000000000000000ablack`. This is equal to 1 BLACK, so `recipient` address `did:fury:1mx9nqk5agvlsvt2yc8259nwztmxq7zjq50mxkp` will receive 1 BLACK if this proposal is passed.
 
-The `deposit` of `500000000000000000000aplanq` results in 500 PLANQ being used from the proposal submitter's account. A minimum deposit is required for a proposal to enter the voting period, and anyone may contribute to this deposit within 2 days. If the minimum deposit isn't reached before this time, the deposit amounts will be burned. Deposit amounts will also be burned if the quorum isn't met in the vote or the proposal is vetoed.
+The `deposit` of `500000000000000000000ablack` results in 500 BLACK being used from the proposal submitter's account. A minimum deposit is required for a proposal to enter the voting period, and anyone may contribute to this deposit within 2 days. If the minimum deposit isn't reached before this time, the deposit amounts will be burned. Deposit amounts will also be burned if the quorum isn't met in the vote or the proposal is vetoed.
 
 ```json
 {
   "title": "Community Pool Spend",
   "description": "This is the summary of the key information about this proposal. Include the URL to a PDF version of your full proposal.",
-  "recipient": "plq1mx9nqk5agvlsvt2yc8259nwztmxq7zjq50mxkp",
+  "recipient": "did:fury:1mx9nqk5agvlsvt2yc8259nwztmxq7zjq50mxkp",
   "amount": [
     {
-      "denom": "aplanq",
+      "denom": "ablack",
       "amount": "1000000000000000000"
     }
   ],
-  "deposit": "500000000000000000000aplanq"
+  "deposit": "500000000000000000000ablack"
 }
 
 ```
@@ -100,24 +100,24 @@ The `deposit` of `500000000000000000000aplanq` results in 500 PLANQ being used f
 
 This is a governance protocol which replaces client 07-tendermint-3 with client 07-tendermint-10.
 
-Users can query the proposal details with the `planqd` command-line interface using this command:
+Users can query the proposal details with the `blackd` command-line interface using this command:
 
 ```bash
-`planqd --node https://rpc.planq.network query gov proposal 3`.
+`blackd --node https://rpc.black.network query gov proposal 3`.
 ```
 
 ```json
 {
   "title": "Replace expired IBC client for Osmosis",
   "description": "Replace client 07-tendermint-3 with client 07-tendermint-6",
-  "recipient": "plq15dxa2e3lc8zvmryv62x3stt86yhplu2vs9kxct",
+  "recipient": "did:fury:15dxa2e3lc8zvmryv62x3stt86yhplu2vs9kxct",
   "amount": [
     {
       "amount": "12900000000000000000000",
-      "denom": "aplanq"
+      "denom": "ablack"
     }
   ],
-  "deposit": "500000000000000000000aplanq"
+  "deposit": "500000000000000000000ablack"
 }
 ```
 
@@ -131,66 +131,66 @@ For parameter-change proposals, there are seven components:
 
 1. **Title** - the distinguishing name of the proposal, typically the way the that explorers list proposals
 2. **Description** - the body of the proposal that further describes what is being proposed and details surrounding the proposal
-3. **Subspace** - the Planq module with the parameter that is being changed
+3. **Subspace** - the Black module with the parameter that is being changed
 4. **Key** - the parameter that will be changed
 5. **Value** - the value of the parameter that will be changed by the governance mechanism
-6. **Denom** - `aplanq` (atto-PLANQ) will be the type of asset used as the deposit
-7. **Amount** - the amount that will be contributed to the deposit (in `aplanq`) from the account submitting the proposal
+6. **Denom** - `ablack` (atto-BLACK) will be the type of asset used as the deposit
+7. **Amount** - the amount that will be contributed to the deposit (in `ablack`) from the account submitting the proposal
 
 #### Real Example
 
-In the example below, a network explorer listed the governance proposal by its title: "Increase the minimum deposit for governance proposals." When a user selects the proposal, they'll see the proposal’s description. This proposal can be [found on the Planq network here](https://commonwealth.im/evmos/proposal/7-increase-the-minimum-deposit-for-governance-proposals).
+In the example below, a network explorer listed the governance proposal by its title: "Increase the minimum deposit for governance proposals." When a user selects the proposal, they'll see the proposal’s description. This proposal can be [found on the Black network here](https://commonwealth.im/evmos/proposal/7-increase-the-minimum-deposit-for-governance-proposals).
 
 Not all explorers will show the proposed parameter changes that are coded into the proposal, so the delegator should verify that the description aligns with what the governance proposal is programmed to enact. If the description says that a certain parameter will be increased, it should also be programmed to do that, but it's possible that that's not the case (accidentally or otherwise).
 
-Users can query the proposal details with the planqd command-line interface using this command:
+Users can query the proposal details with the blackd command-line interface using this command:
 
 ```bash
-`planqd --node https://rpc.planq.network query gov proposal 7`.
+`blackd --node https://rpc.black.network query gov proposal 7`.
 ```
 
 ```json
 {
   "title": "Increase the minimum deposit for governance proposals",
-  "description": "If successful, this parameter-change governance proposal will change the minimum deposit for future proposals from 10 planq tokens to 64.",
+  "description": "If successful, this parameter-change governance proposal will change the minimum deposit for future proposals from 10 black tokens to 64.",
   "changes": [
     {
       "subspace": "gov",
       "key": "depositparams",
-      "value": {"mindeposit":[{"denom":"aplanq","amount":"64000000000000000000"}],
+      "value": {"mindeposit":[{"denom":"ablack","amount":"64000000000000000000"}],
       "max_deposit_period":"1209600000000000"}
     }
   ],
-  "deposit": "20100000000000000000aplanq"
+  "deposit": "20100000000000000000ablack"
 }
 ```
 
-The deposit `denom` is `aplanq` and `amount` is `20100000000000000000`. Therefore, a deposit of 20.1 PLANQ will be included with this proposal. At the time, the PLANQ mainnet had a 10 PLANQ minimum deposit, so this proposal was put directly into the voting period (and subsequently passed). The minimum deposit amount is currently 500 PLANQ. There is a minimum deposit required for a proposal to enter the voting period, and anyone may contribute to this deposit within a 2-day period. If the minimum deposit isn't reached before this time, the deposit amounts will be burned.
+The deposit `denom` is `ablack` and `amount` is `20100000000000000000`. Therefore, a deposit of 20.1 BLACK will be included with this proposal. At the time, the BLACK mainnet had a 10 BLACK minimum deposit, so this proposal was put directly into the voting period (and subsequently passed). The minimum deposit amount is currently 500 BLACK. There is a minimum deposit required for a proposal to enter the voting period, and anyone may contribute to this deposit within a 2-day period. If the minimum deposit isn't reached before this time, the deposit amounts will be burned.
 
 ## Sending the transaction that submits your governance proposal
 
-For information on how to use `planqd` binary to submit an on-chain proposal through the governance module, please refer to the [quickstart](../../validators/quickstart/binary.md) documentation.
+For information on how to use `blackd` binary to submit an on-chain proposal through the governance module, please refer to the [quickstart](../../validators/quickstart/binary.md) documentation.
 
 ### CLI
 
-This is the command format for using `planqd` (the command-line interface) to submit your proposal on-chain:
+This is the command format for using `blackd` (the command-line interface) to submit your proposal on-chain:
 
 ```bash
-planqd tx gov submit-proposal \
+blackd tx gov submit-proposal \
   --title=<title> \
   --description=<description> \
   --type="Text" \
-  --deposit="1000000aplanq" \
+  --deposit="1000000ablack" \
   --from=<dev0> \
   --chain-id=<chain_id>
   --node <address>
 ```
 
 ::: tip
-Use the `plq tx gov --help` flag to get more info about the governance commands
+Use the `did:fury: tx gov --help` flag to get more info about the governance commands
 :::
 
-1. `planqd` is the command-line interface client that is used to send transactions and query Planq
+1. `blackd` is the command-line interface client that is used to send transactions and query Black
 2. `tx gov submit-proposal param-change` indicates that the transaction is submitting a parameter-change proposal
 3. `--from dev0` is the account key that pays the transaction fee and deposit amount
 4. `--gas 500000` is the maximum amount of gas permitted to be used to process the transaction
@@ -198,36 +198,36 @@ Use the `plq tx gov --help` flag to get more info about the governance commands
    - if this number isn't high enough and there isn't enough gas to process your transaction, the transaction will fail
    - the transaction will only use the amount of gas needed to process the transaction
 5. `--gas-prices` is the flat-rate per unit of gas value for a validator to process your transaction
-6. `--chain-id planq_7070-2` is Planq Mainnet. For current and past chain-id's, please look at the [Chain ID](./../technical_concepts/chain_id.md) documentation.
-   - the testnet chain ID is [planq_7000-1](https://testnet.mintscan.io/evmos). For current and past testnet information, please look at the [testnet repository](https://github.com/planq-network/networks/testnets)
-7. `--node` is using a full node to send the transaction to the Planq Mainnet
+6. `--chain-id black_42024-2` is Black Mainnet. For current and past chain-id's, please look at the [Chain ID](./../technical_concepts/chain_id.md) documentation.
+   - the testnet chain ID is [black_4200-1](https://testnet.mintscan.io/evmos). For current and past testnet information, please look at the [testnet repository](https://github.com/black-network/networks/testnets)
+7. `--node` is using a full node to send the transaction to the Black Mainnet
 
 ### Verifying your transaction
 
-After posting your transaction, your command line interface (`planqd`) will provide you with the transaction's hash, which you can either query using `planqd` or by searching the transaction hash using [Bigdipper](https://explorer.planq.network/) or any block explorer.
+After posting your transaction, your command line interface (`blackd`) will provide you with the transaction's hash, which you can either query using `blackd` or by searching the transaction hash using [Bigdipper](https://explorer.black.network/) or any block explorer.
 
 ### Depositing funds after a proposal has been submitted
 
 Sometimes a proposal is submitted without having the minimum token amount deposited yet. In these cases you would want to be able to deposit more tokens to get the proposal into the voting stage. In order to deposit tokens, you'll need to know what your proposal ID is after you've submitted your proposal. You can query all proposals by the following command:
 
 ```bash
-planqd q gov proposals
+blackd q gov proposals
 ```
 
 If there are a lot of proposals on the chain already, you can also filter by your own address. For the proposal above, that would be:
 
 ```bash
-planqd q gov proposals --depositor plq1hxv7mpztvln45eghez6evw2ypcw4vjmsmr8cdx
+blackd q gov proposals --depositor did:fury:1hxv7mpztvln45eghez6evw2ypcw4vjmsmr8cdx
 ```
 
 Once you have the proposal ID, this is the command to deposit extra tokens:
 
 ```bash
-planqd tx gov deposit <proposal-id> <deposit> --from <name>
+blackd tx gov deposit <proposal-id> <deposit> --from <name>
 ```
 
 In our case above, the `<proposal-id>` would be 59 as queried earlier.
-The `<deposit>` is written as `500000aplanq`, just like the example above.
+The `<deposit>` is written as `500000ablack`, just like the example above.
 
 ### Submit your proposal to the testnet
 
@@ -242,4 +242,4 @@ Submitting your proposal to the testnet increases the likelihood that you will d
 
 - you'll need testnet tokens for your proposal (ask around for a [faucet](./../../developers/testnet/faucet.md))
 - the parameters for testnet proposals are different (eg. voting period timing, deposit amount, deposit denomination)
-- the deposit denomination is in `'atplanq'` instead of `'aplanq'`
+- the deposit denomination is in `'atblack'` instead of `'ablack'`

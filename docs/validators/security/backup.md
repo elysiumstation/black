@@ -13,24 +13,24 @@ The validator private key is a Tendermint Key: a unique key used to sign consens
 To backup everything you need to restore your validator, note that if you are using the "software sign" (the default signing method of Tendermint), your Tendermint key is located at:
 
 ```bash
-~/.planqd/config/priv_validator_key.json
+~/.blackd/config/priv_validator_key.json
 ```
 
 Then do the following:
 
 1. Backup the `json` file mentioned above (or backup the whole `config` folder).
-2. Backup the self-delegator wallet. See [backing up wallets with the Planq Daemon](../../users/wallets/backup.md).
+2. Backup the self-delegator wallet. See [backing up wallets with the Black Daemon](../../users/wallets/backup.md).
 
 To see your validator's associated public key:
 
 ```bash
-planqd tendermint show-validator
+blackd tendermint show-validator
 ```
 
 To see your validator's associated bech32 address:
 
 ```bash
-planqd tendermint show-address
+blackd tendermint show-address
 ```
 
 You can also use hardware to store your Tendermint Key much more safely, such as [YubiHSM2](https://developers.yubico.com/YubiHSM2/).

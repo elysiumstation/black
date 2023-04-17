@@ -4,7 +4,7 @@ order: 3
 
 # Resources
 
-Learn about Planq with the list of official resources. {synopsis}
+Learn about Black with the list of official resources. {synopsis}
 
 ::: tip
 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧
@@ -14,9 +14,9 @@ This documentation page is currently under work in progress.
 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧
 :::
 
-- Documentation (this site): [https://docs.planq.network/](https://docs.planq.network/)
-- Open Source Codebase: [https://github.com/planq-network/planq](https://github.com/planq-network/planq)
-- Website: [https://planq.network/](https://planq.network/)
+- Documentation (this site): [https://docs.black.network/](https://docs.black.network/)
+- Open Source Codebase: [https://github.com/xblackfury/black](https://github.com/xblackfury/black)
+- Website: [https://black.network/](https://black.network/)
 - Ethermint: [https://github.com/evmos/ethermint](https://github.com/evmos/ethermint)
 
 ## Workshops and Videos
@@ -52,4 +52,4 @@ Note: most of these articles are outdated as they refer to the previous Ethermin
 
 ## Next {hide}
 
-Learn how to run a Planq [node](./../../validators/quickstart/run_node.md) {hide}
+Learn how to run a Black [node](./../../validators/quickstart/run_node.md) {hide}

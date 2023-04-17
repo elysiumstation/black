@@ -41,7 +41,7 @@ for dir in $proto_dirs; do
 done
 
 # move resulting files to the right places
-#cp -r github.com/planq-network/planq/x/* x/
+#cp -r github.com/xblackfury/black/x/* x/
 rm -rf github.com
 
 # combine swagger files

@@ -8,8 +8,8 @@
 ## USAGE RUNDOWN
 # Not for use on live nodes
 # For use when testing.
-# Assumes that ~/.planqd doesn't exist
-# can be modified to suit your purposes if ~/.planqd does already exist
+# Assumes that ~/.blackd doesn't exist
+# can be modified to suit your purposes if ~/.blackd does already exist
 
 
 set -uxe
@@ -31,32 +31,32 @@ go install ./...
 # go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=boltdb' -tags boltdb ./...
 
 # Initialize chain.
-planqd init test --chain-id planq_7070-1
+blackd init test --chain-id black_42024-1
 
 # Get Genesis
-wget https://raw.githubusercontent.com/planq-network/networks/main/mainnet/genesis.json
-mv genesis.json ~/.planqd/config/
+wget https://raw.githubusercontent.com/black-network/networks/main/mainnet/genesis.json
+mv genesis.json ~/.blackd/config/
 
 
 # Get "trust_hash" and "trust_height".
 INTERVAL=1000
-LATEST_HEIGHT=$(curl -s https://rpc.planq.network/block | jq -r .result.block.header.height)
+LATEST_HEIGHT=$(curl -s https://rpc.black.network/block | jq -r .result.block.header.height)
 BLOCK_HEIGHT=$(($LATEST_HEIGHT-$INTERVAL)) 
-TRUST_HASH=$(curl -s "https://rpc.planq.network/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+TRUST_HASH=$(curl -s "https://rpc.black.network/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 
 # Print out block and transaction hash from which to sync state.
 echo "trust_height: $BLOCK_HEIGHT"
 echo "trust_hash: $TRUST_HASH"
 
 # Export state sync variables.
-export PLANQD_STATESYNC_ENABLE=true
-export PLANQD_P2P_MAX_NUM_OUTBOUND_PEERS=200
-export PLANQD_STATESYNC_RPC_SERVERS="https://rpc.planq.network"
-export PLANQD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
-export PLANQD_STATESYNC_TRUST_HASH=$TRUST_HASH
+export BLACKD_STATESYNC_ENABLE=true
+export BLACKD_P2P_MAX_NUM_OUTBOUND_PEERS=200
+export BLACKD_STATESYNC_RPC_SERVERS="https://rpc.black.network"
+export BLACKD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
+export BLACKD_STATESYNC_TRUST_HASH=$TRUST_HASH
 
 # Fetch and set list of seeds from chain registry.
-export PLANQD_P2P_SEEDS=$(curl -s https://raw.githubusercontent.com/planq-network/chain-registry/main/planq/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')
+export BLACKD_P2P_SEEDS=$(curl -s https://raw.githubusercontent.com/black-network/chain-registry/main/black/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')
 
 # Start chain.
-planqd start --x-crisis-skip-assert-invariants
+blackd start --x-crisis-skip-assert-invariants

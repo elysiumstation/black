@@ -4,15 +4,15 @@ order: 2
 
 # Running the Server
 
-Learn how to run and setup the JSON-RPC server on Planq. {synopsis}
+Learn how to run and setup the JSON-RPC server on Black. {synopsis}
 
 :::tip
-**Important**: You cannot use all JSON RPC methods unless your node stores the entire copy of the blockchain locally. Do you need archives/snapshots of our networks? Go to [this section](https://docs.planq.network/validators/snapshots_archives.html).
+**Important**: You cannot use all JSON RPC methods unless your node stores the entire copy of the blockchain locally. Do you need archives/snapshots of our networks? Go to [this section](https://docs.black.network/validators/snapshots_archives.html).
 :::
 
 ## Introduction
 
-JSON-RPC is provided on multiple transports. Planq supports JSON-RPC over HTTP and WebSocket.
+JSON-RPC is provided on multiple transports. Black supports JSON-RPC over HTTP and WebSocket.
 
 ## Requirements
 
@@ -24,7 +24,7 @@ You must have ports 8545 and 8546 open on your firewall.
 To enable RPC server use the following flag (set to true by default).
 
 ```bash
-planqd start --json-rpc.enable
+blackd start --json-rpc.enable
 ```
 
 ## Defining Namespaces
@@ -114,7 +114,7 @@ The ETH Tx Indexer provides an optional indexer services for Ethereum transactio
 To enable the ETH Indexer run the following command
 
 ```bash
-planqd start --json-rpc.enable-indexer 
+blackd start --json-rpc.enable-indexer 
 ```
 
 ### Index Historical Transactions
@@ -122,7 +122,7 @@ planqd start --json-rpc.enable-indexer
 If the chain had already started and you need the ETH Indexer to catch up on old transactions, you could run the `index-eth-tx` command to index historical ETH transactions.
 
 ```bash
-planqd index-eth-tx backward
+blackd index-eth-tx backward
 ```
 
 After the eth indexer has finished catching up, the Tendermint indexer can be disabled for JSON RPC support.
@@ -130,7 +130,7 @@ After the eth indexer has finished catching up, the Tendermint indexer can be di
 If you need to index transactions from the last indexed block to the top of the chain, you can run
 
 ```bash
-planqd index-eth-tx forward
+blackd index-eth-tx forward
 ```
 
 ### Eth Tx Indexer and State sync

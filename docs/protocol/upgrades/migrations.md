@@ -7,25 +7,25 @@
 
 ### Manual Genesis Migration
 
-Planq can dump the entire application state to a JSON file. This, besides upgrades, can be
+Black can dump the entire application state to a JSON file. This, besides upgrades, can be
 useful for manual analysis of the state at a given height.
 
 Export state with:
 
 ```bash
-planqd export > new_genesis.json
+blackd export > new_genesis.json
 ```
 
 You can also export state from a particular height (at the end of processing the block of that height):
 
 ```bash
-planqd export --height [height] > new_genesis.json
+blackd export --height [height] > new_genesis.json
 ```
 
 If you plan to start a new network for 0 height (i.e genesis) from the exported state, export with the `--for-zero-height` flag:
 
 ```bash
-planqd export --height [height] --for-zero-height > new_genesis.json
+blackd export --height [height] --for-zero-height > new_genesis.json
 ```
 
 Then, replace the old `genesis.json` with `new_genesis.json`.
@@ -40,5 +40,5 @@ At this point, you might want to run a script to update the exported genesis int
 You can use the `migrate` command to migrate from a given version to the next one (eg: `v0.X.X` to `v1.X.X`):
 
 ```bash
-planqd migrate TARGET_VERSION GENESIS_FILE --chain-id=<new_chain_id> --genesis-time=<yyyy-mm-ddThh:mm:ssZ>
+blackd migrate TARGET_VERSION GENESIS_FILE --chain-id=<new_chain_id> --genesis-time=<yyyy-mm-ddThh:mm:ssZ>
 ```

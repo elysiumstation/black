@@ -4,7 +4,7 @@ order: 4
 
 # Keplr
 
-Connect your Keplr wallet with Planq. {synopsis}
+Connect your Keplr wallet with Black. {synopsis}
 
 - [Install Keplr](https://www.keplr.app/) {prereq}
 
@@ -75,10 +75,10 @@ There are several ways to import an existing account:
    - Be sure you have both the Cosmos and Ethereum Ledger apps downloaded on your Ledger device
 2. To complete the connection with your Ledger Nano Hard Wallet, follow the steps described in the pop-up that appears (a detailed tutorial can be found [here](https://medium.com/chainapsis/how-to-use-ledger-nano-hardware-wallet-with-keplr-9ea7f07826c2))
 3. If you have not used Keplr before, set a password for the Keplr extension, and click **Confirm**
-4. Switch to the Ethereum app on the Ledger, then select “Planq (Beta)” from the Keplr chain registry to connect the public key
+4. Switch to the Ethereum app on the Ledger, then select “Black (Beta)” from the Keplr chain registry to connect the public key
    - All signing from Keplr will use the Ledger Ethereum app, with either [EIP-712 transactions](https://eips.ethereum.org/EIPS/eip-712) or standard [Ethereum transactions](https://ethereum.org/en/developers/docs/transactions/).
 
 ## Connect Keplr to Mainnet
 
-Once you are signed in to the Keplr extension, you can connect the wallet with the Planq network. **[Click here to add the Planq Mainnet to Keplr](https://chains.keplr.app)**. Search for Planq in the search bar and click on "Add to Keplr".
-The Planq network is now to be found in Keplr; look for the `Planq` network in the `Beta support` section.
+Once you are signed in to the Keplr extension, you can connect the wallet with the Black network. **[Click here to add the Black Mainnet to Keplr](https://chains.keplr.app)**. Search for Black in the search bar and click on "Add to Keplr".
+The Black network is now to be found in Keplr; look for the `Black` network in the `Beta support` section.

@@ -24,8 +24,8 @@ import (
 	"github.com/evmos/ethermint/encoding"
 	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
 
-	"github.com/planq-network/planq/cmd/config"
-	"github.com/planq-network/planq/types"
+	"github.com/xblackfury/black/cmd/config"
+	"github.com/xblackfury/black/types"
 )
 
 func init() {
@@ -38,7 +38,7 @@ func init() {
 var DefaultTestingAppInit func() (ibctesting.TestingApp, map[string]json.RawMessage) = SetupTestingApp
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in
-// Planq testing.
+// Black testing.
 var DefaultConsensusParams = &abci.ConsensusParams{
 	Block: &abci.BlockParams{
 		MaxBytes: 200000,
@@ -63,11 +63,11 @@ func init() {
 	config.SetBip44CoinType(cfg)
 }
 
-// Setup initializes a new PlanqApp. A Nop logger is set in PlanqApp.
+// Setup initializes a new BlackApp. A Nop logger is set in BlackApp.
 func Setup(
 	isCheckTx bool,
 	feemarketGenesis *feemarkettypes.GenesisState,
-) *PlanqApp {
+) *BlackApp {
 	privVal := mock.NewPV()
 	pubKey, _ := privVal.GetPubKey()
 
@@ -84,7 +84,7 @@ func Setup(
 	}
 
 	db := dbm.NewMemDB()
-	app := NewPlanqApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
+	app := NewBlackApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
 	if !isCheckTx {
 		// init chain must be called to stop deliverState from being nil
 		genesisState := NewDefaultGenesisState()
@@ -118,7 +118,7 @@ func Setup(
 	return app
 }
 
-func GenesisStateWithValSet(app *PlanqApp, genesisState simapp.GenesisState,
+func GenesisStateWithValSet(app *BlackApp, genesisState simapp.GenesisState,
 	valSet *tmtypes.ValidatorSet, genAccs []authtypes.GenesisAccount,
 	balances ...banktypes.Balance,
 ) simapp.GenesisState {
@@ -185,6 +185,6 @@ func GenesisStateWithValSet(app *PlanqApp, genesisState simapp.GenesisState,
 func SetupTestingApp() (ibctesting.TestingApp, map[string]json.RawMessage) {
 	db := dbm.NewMemDB()
 	cfg := encoding.MakeConfig(ModuleBasics)
-	app := NewPlanqApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, cfg, simapp.EmptyAppOptions{})
+	app := NewBlackApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, cfg, simapp.EmptyAppOptions{})
 	return app, NewDefaultGenesisState()
 }

@@ -4,7 +4,7 @@ order: 4
 
 # JSON-RPC Methods
 
-Check the JSON-RPC methods supported on Planq. {synopsis}
+Check the JSON-RPC methods supported on Black. {synopsis}
 
 ## Pre-requisite Readings
 
@@ -178,7 +178,7 @@ Get the web3 client version.
 #### Result
 
 ```json
- {"jsonrpc":"2.0","id":1,"result":"Planq/0.1.3+/linux/go1.18"}
+ {"jsonrpc":"2.0","id":1,"result":"Black/0.1.3+/linux/go1.18"}
 ```
 
 #### Client Examples
@@ -1225,7 +1225,7 @@ Sets the minimal gas price used to accept transactions. Any transaction below th
 
 This method requires a `node` restart after being called because it changes the configuration file.
 
-Make sure your `planqd start` call is not using the flag `minimum-gas-prices` because this value will be used instead of the one set on the configuration file.
+Make sure your `blackd start` call is not using the flag `minimum-gas-prices` because this value will be used instead of the one set on the configuration file.
 
 #### Parameters
 

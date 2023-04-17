@@ -5,7 +5,7 @@ order: 6
 # Chain Parameters
 
 ::: tip
-**Note:** Working on a governance proposal related to the changing of chain parameters? Make sure to look at [Planq Governance](overview.md), and specifically the [best practices](best_practices.md#parameter-change-proposal).
+**Note:** Working on a governance proposal related to the changing of chain parameters? Make sure to look at [Black Governance](overview.md), and specifically the [best practices](best_practices.md#parameter-change-proposal).
 :::
 
 If a parameter-change proposal is successful, the change takes effect immediately upon completion of the voting period.
@@ -24,6 +24,6 @@ For a comprehensive list of available module parameters see the table below:
 | `slashing`     | `cosmos-sdk` | [reference](https://docs.cosmos.network/main/modules/slashing/08_params.html)     |
 | `staking`      | `cosmos-sdk` | [reference](https://docs.cosmos.network/main/modules/staking/08_params.html)      |
 | `transfer`     | `ibc-go`     | [reference](https://github.com/cosmos/ibc-go/blob/main/docs/ibc/params.md)        |
-| `evm`          | `ethermint`  | [reference](https://docs.planq.network/modules/evm/08_params.html)                    |
-| `feemarket`    | `ethermint`  | [reference](https://docs.planq.network/modules/feemarket/07_params.html)              |
-| `erc20`        | `plq`      | [reference](https://docs.planq.network/modules/erc20/07_parameters.html)              |
+| `evm`          | `ethermint`  | [reference](https://docs.black.network/modules/evm/08_params.html)                    |
+| `feemarket`    | `ethermint`  | [reference](https://docs.black.network/modules/feemarket/07_params.html)              |
+| `erc20`        | `did:fury:`      | [reference](https://docs.black.network/modules/erc20/07_parameters.html)              |

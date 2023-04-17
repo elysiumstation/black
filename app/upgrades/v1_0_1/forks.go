@@ -6,13 +6,13 @@ import (
 	evmkeeper "github.com/evmos/ethermint/x/evm/keeper"
 	feemarketkeeper "github.com/evmos/ethermint/x/feemarket/keeper"
 	erc20keeper "github.com/evmos/evmos/v9/x/erc20/keeper"
-	"github.com/planq-network/planq/app/keepers"
+	"github.com/xblackfury/black/app/keepers"
 )
 
-// RunForkLogic executes height-gated on-chain fork logic for the Planq v2
+// RunForkLogic executes height-gated on-chain fork logic for the Black v2
 // upgrade.
 func RunForkLogic(ctx sdk.Context, keepers *keepers.AppKeepers, baseApp *baseapp.BaseApp) {
-	ctx.Logger().Info("Applying Planq v1_0_1 upgrade." +
+	ctx.Logger().Info("Applying Black v1_0_1 upgrade." +
 		" enable extra EIPs" +
 		" enable ERC20 Module" +
 		" setting max block gas limit + min gas price")

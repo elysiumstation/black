@@ -4,11 +4,11 @@ order: 5
 
 # Community Pool
 
-Planq token-holders can cast a vote to approve spending from the Community Pool to fund development and projects in the Planq ecosystem.
+Black token-holders can cast a vote to approve spending from the Community Pool to fund development and projects in the Black ecosystem.
 
 ## Why create a proposal to use Community Pool funds?
 
-- **As a strategy: you can do both.** You can submit your proposal to the Planq Grants Program, but also consider submitting your proposal publicly on-chain. If the Planq community votes in favor, you can withdraw your application.
+- **As a strategy: you can do both.** You can submit your proposal to the Black Grants Program, but also consider submitting your proposal publicly on-chain. If the Black community votes in favor, you can withdraw your application.
 - **As a strategy: funding is fast.** Besides the time it takes to push your proposal on-chain, the only other limiting factor is a fixed 5-day voting period. As soon as the proposal passes, your account will be credited the full amount of your proposal request.
 - **To build rapport.** Engaging publicly with the community is the opportunity to develop relationships with stakeholders and to educate them about the importance of your work. Unforeseen partnerships could arise, and overall the community may value your work more if they are involved as stakeholders.
 
@@ -26,12 +26,12 @@ Funded projects that fail to deliver may return funding to Community Pool and en
 
 ### What is the balance of the Community Pool?
 
-- **Community Pool Account**: [`plq1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8974jnh`](https://explorer.planq.network/accounts/plq1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8974jnh)
+- **Community Pool Account**: [`did:fury:1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8974jnh`](https://explorer.black.network/accounts/did:fury:1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8974jnh)
 
 ### How can funds from the Community Pool be spent?
 
-Funds from the Planq Community Pool may be spent via successful governance proposal.
+Funds from the Black Community Pool may be spent via successful governance proposal.
 
 ### How are funds disbursed after a community-spend proposal is passed?
 
-If a community-spend proposal passes successfully, the number of PLANQ encoded in the proposal will be transferred from the community pool to the address encoded in the proposal, and this will happen immediately after the voting period ends.
+If a community-spend proposal passes successfully, the number of BLACK encoded in the proposal will be transferred from the community pool to the address encoded in the proposal, and this will happen immediately after the voting period ends.
